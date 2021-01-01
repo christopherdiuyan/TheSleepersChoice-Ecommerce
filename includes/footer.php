@@ -153,9 +153,6 @@
     <!-- Modal end -->
     
 </div>
-<script>
-getresult("fetch_data.php");
-</script>
 
 <!-- All JS is here
 ============================================ -->
@@ -184,9 +181,9 @@ getresult("fetch_data.php");
     <script>
     $(document).ready(function(){
 
-        filter_data(1);
+        filter_data();
 
-        function filter_data(page)
+        function filter_data()
         {
             $('#shop-products').html('<div id="loading" style="" ></div>');
             var action = 'filter_data';
@@ -198,32 +195,12 @@ getresult("fetch_data.php");
             $.ajax({
                 url:"fetch_data.php",
                 method:"POST",
-                data:{action:action, minimum_price:minimum_price, maximum_price:maximum_price, brand:brand, ram:ram, storage:storage, page:page },
+                data:{action:action, minimum_price:minimum_price, maximum_price:maximum_price, brand:brand, ram:ram, storage:storage},
                 success:function(data){
                     $('#shop-products').html(data);
                 }
             });
         }
-
-        // $(document).on('click', '.pagination_link', function(event) // this line binds the handler to your pagination
-        // {
-        //     event.preventDefault(); //this prevents the link being loaded as a new page, the default behaviour
-        //     var page = $(this).attr("id"); //we get the url of the page to load in by ajax
-        //     filter_data(page);
-        //     //--------------------------------------------------//
-        //     history.pushState(null, null, $(this).attr('id'));
-        //     historyedited = true;
-        //     //--------------------------------------------------//
-        //     return event.preventDefault();
-        // });
-
-        //     window.addEventListener('popstate', e => {
-        //         filter_data(e.state.page);
-        //         console.log('popstate!');   
-        // });
-
-
-             //history.replaceState({page: null}, 'Default state', './');
 
         function get_filter(class_name)
         {
@@ -235,7 +212,7 @@ getresult("fetch_data.php");
         }
 
         $('.common_selector').click(function(){
-            filter_data(1);
+            filter_data();
         });
         /*---------------------
             Price slider
@@ -253,7 +230,7 @@ getresult("fetch_data.php");
                 $('#amount').html(ui.values[0] + ' - ' + ui.values[1]);
                 $('#hidden_minimum_price').val(ui.values[0]);
                 $('#hidden_maximum_price').val(ui.values[1]);
-                filter_data(1);
+                filter_data();
             }
         });
 

@@ -2,24 +2,7 @@
    include_once("includes/header.php");
    include("includes/db.php");
    ?>
-   <script src="http://code.jquery.com/jquery-2.1.1.js"></script>
-<script>
-function getresult(url) {
-    $.ajax({
-        url: url,
-        type: "GET",
-        data:  {rowcount:$("#rowcount").val()},
-        beforeSend: function(){$("#overlay").show();},
-        success: function(data){
-        $("#pagination-results").html(data);
-        setInterval(function() {$("#overlay").hide(); },500);
-        },
-        error: function() 
-        {}          
-   });
-}
-</script>
-    <div id="overlay"><div><img src="loading.gif" width="64px" height="64px"/></div></div>
+    <!-- <div id="overlay"><div><img src="loading.gif" width="64px" height="64px"/></div></div> -->
     <div class="breadcrumb-area pt-35 pb-35 bg-gray">
         <div class="container">
             <div class="breadcrumb-content text-center">

@@ -30,56 +30,6 @@ setlocale(LC_MONETARY,"en_US"); // US national format (see : http://php.net/mone
     <!-- jQuery JS -->
 	<script src="assets/js/vendor/jquery-1.12.4.min.js"></script>
     <!-- New JS -->
-    <script>
-$(document).ready(function(){	
-		$(".form-item").submit(function(e){
-			var form_data = $(this).serialize();
-			// var button_content = $(this).find('button[type=submit]');
-			// button_content.html('Adding...'); //Loading button text 
-
-			$.ajax({ //make ajax request to cart_process.php
-				url: "cart_process.php",
-				type: "POST",
-				dataType:"json", //expect json value from server
-				data: form_data
-			}).done(function(data){ //on Ajax success
-				$("#cart-info").html(data.items); //total items in cart-info element
-				button_content.html('Add to Cart'); //reset button text to original text
-				alert("Item added to Cart!"); //alert user
-				if($(".shopping-cart-box").css("display") == "block"){ //if cart box is still visible
-					$(".cart-box").trigger( "click" ); //trigger click to update the cart box.
-				}
-			})
-			e.preventDefault();
-		});
-	
-	//Remove items from cart
-	$("#shopping-cart-results").on('click', 'a.remove-item', function(e) {
-		e.preventDefault(); 
-		var pcode = $(this).attr("data-code"); //get product code
-		$(this).parent().fadeOut(); //remove item element from box
-		$.getJSON( "cart_process.php", {"remove_code":pcode} , function(data){ //get Item count from Server
-			$("#cart-info").html(data.items); //update Item count in cart-info
-			$(".cart-box").trigger( "click" ); //trigger click on cart-box to update the items list
-		});
-	});
-
-});
-</script>
-
-<style type="text/css">
-	.link {padding: 10px 15px;background: transparent;border:#bccfd8 1px solid;border-left:0px;cursor:pointer;color:#607d8b}
-.disabled {cursor:not-allowed;color: #bccfd8;}
-.current {background: #bccfd8;}
-.first{border-left:#bccfd8 1px solid;}
-.question {font-weight:bold;}
-.answer{padding-top: 10px;}
-#pagination{margin-top: 20px;padding-top: 30px;border-top: #F0F0F0 1px solid;}
-.dot {padding: 10px 15px;background: transparent;border-right: #bccfd8 1px solid;}
-.page-content {padding: 20px;margin: 0 auto;}
-	#overlay {background-color: rgba(0, 0, 0, 0.6);z-index: 999;position: fixed;left: 0;top: 0;width: 100%;height: 100%;display: none;}
-#overlay div {position:absolute;left:50%;top:50%;margin-top:-32px;margin-left:-32px;}
-</style>
 </head>
 <body>
 <div class="wrapper">
