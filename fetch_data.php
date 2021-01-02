@@ -2,6 +2,7 @@
 
 // require_once("dbcontroller.php");
 require_once('includes/db.php');
+//require_once('functions/functions.php');
 
 if(isset($_POST["action"]))
 {
@@ -59,11 +60,9 @@ if(isset($_POST["action"]))
 
                             <div class="ht-product-action">
                                 <ul>
-                                    <li><a href="#" data-toggle="modal" data-target="#exampleModal"><i class="sli sli-magnifier"></i><span class="ht-product-action-tooltip">Quick View</span></a></li>
+                                    <li><a href="#" data-toggle="modal" data-target="#exampleModal"><i class="sli sli-bag"></i><span class="ht-product-action-tooltip">Add to Cart</span></a></li>
                                     <li><a  href="#"><i class="sli sli-heart"></i><span class="ht-product-action-tooltip">Add to Wishlist</span></a></li>
                                     <li>
-                                    <input name="product_code" type="hidden" value="{$row["product_id"]}">
-                                    <a type="submit"><i class="sli sli-bag"></i><span class="ht-product-action-tooltip">Add to Cart</span></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -121,8 +120,95 @@ if(isset($_POST["action"]))
 	}
 
 	echo $output;
+    //getPaginator($total_row);
+
 }
 ?>
+<?php
+function getPaginator($total_row){
+
+    $per_page=9;
+    $aWhere = array();
+    $aPath = '';
+
+    /// Begin for Product Categories /// 
+
+    if(isset($_REQUEST['p_cat'])&&is_array($_REQUEST['p_cat'])){
+
+        foreach($_REQUEST['p_cat'] as $sKey=>$sVal){
+
+            if((int)$sVal!=0){
+
+                $aWhere[] = 'p_cat_id='.(int)$sVal;
+                $aPath .= 'p_cat[]='.(int)$sVal.'&';
+
+            }
+
+        }
+
+    }    
+
+    /// Finish for Product Categories /// 
+
+    /// Begin for Categories /// 
+
+    if(isset($_REQUEST['cat'])&&is_array($_REQUEST['cat'])){
+
+        foreach($_REQUEST['cat'] as $sKey=>$sVal){
+
+            if((int)$sVal!=0){
+
+                $aWhere[] = 'cat_id='.(int)$sVal;
+                $aPath .= 'cat[]='.(int)$sVal.'&';
+
+            }
+
+        }
+
+    }    
+
+    // /// Finish for Categories ///
+
+    $sWhere = (count($aWhere)>0?' WHERE '.implode(' or ',$aWhere):'');
+    // $query = "select * from product";//.$sWhere;
+    // $statement = $connect->prepare($query);
+    // $statement->execute();
+    // $result = $statement->fetchAll();
+    // $total_records = $statement->rowCount();
+
+    $total_pages = ceil($total_row / $per_page);
+
+    echo '<div class="pro-pagination-style text-center mt-30">
+    <ul>';
+    //echo "<li> <a style='color:#DF7861' href='shop.php?page=1";
+    if(!empty($aPath)){
+
+        echo "&".$aPath;
+
+    }
+    echo '<li><a class="prev" href="#"><i class="sli sli-arrow-left"></i></a></li>';
+    //echo "'>".'First Page'."</a></li>";
+
+    for($i=1; $i<=$total_pages; $i++){
+
+        echo "<li> <a href='shop.php?page=".$i.(!empty($aPath)?'&'.$aPath:'')."'>".$i."</a></li>";
+        //echo '<li><a href="shop.php?page=".$i.(!empty($aPath)?'&'.$aPath:'').">".$i."</a></li>';
+
+    };
+
+    echo "<li> <a class='next' href='shop.php?page=$total_pages'>". '<i class="sli sli-arrow-right"></i></a></li>';
+    //echo '<li><a class="next" href="shop.php?page=$total_pages"><i class="sli sli-arrow-right"></i></a></li>';
+    if(!empty($aPath)){
+
+        echo "&".$aPath;
+
+    }
+
+   // echo "'>".'Last Page'."</a></li>";
+    echo '  </ul>
+</div>';
+}
+ ?>
 
 <!-- <div class="pro-pagination-style text-center mt-30">
     <ul>
