@@ -4,7 +4,7 @@
             <h4 class="pro-sidebar-title">Search </h4>
             <div class="pro-sidebar-search mb-50 mt-25">
                 <form class="pro-sidebar-search-form" action="#">
-                    <input type="text" placeholder="Search here...">
+                    <input type="text" id="searchProd" autocomplete="off" placeholder="Search here...">
                     <button>
                         <i class="sli sli-magnifier"></i>
                     </button>
@@ -12,21 +12,24 @@
             </div>
         </div>
         <div class="sidebar-widget">
-            <h4 class="pro-sidebar-title">Refine By </h4>
+            <h4 class="pro-sidebar-title">Product Category </h4>
             <div class="sidebar-widget-list mt-30">
                 <ul>
                     <?php
-
-                    $query = "SELECT DISTINCT(product_ram) FROM product WHERE product_status = '1' ORDER BY product_ram DESC";
+                    $query = "SELECT * FROM product_categories ORDER BY p_cat_title";
                     $statement = $connect->prepare($query);
                     $statement->execute();
                     $result = $statement->fetchAll();
-                    foreach($result as $row)
-                    {
+
+                    foreach($result as $row) 
+                    { 
+                        $query = "SELECT * FROM products WHERE product_category = '" . $row['p_cat_title'] . "'";
+                        $statement = $connect->prepare($query);
+                        $statement->execute();
                     ?>
                     <li>
                         <div class="sidebar-widget-list-left">
-                            <input type="checkbox" class="common_selector ram" value="<?php echo $row['product_ram']; ?>"> <a href="#"><?php echo $row['product_ram']; ?> GB <span>4</span> </a> 
+                            <input type="checkbox" class="common_selector cat" value="<?php echo $row['p_cat_title']; ?>"> <a ><?php echo $row['p_cat_title']; ?> <span><?php echo $statement->rowCount() ?></span> </a> 
                             <span class="checkmark"></span>
                         </div>
                     </li>
@@ -46,7 +49,7 @@
                 <div id="slider-range"></div>
             </div>
         </div>
-        <div class="sidebar-widget mt-50">
+ <!--        <div class="sidebar-widget mt-50">
             <h4 class="pro-sidebar-title">Colour </h4>
             <div class="sidebar-widget-list mt-20">
                 <ul>
@@ -93,7 +96,7 @@
                     <?php } ?>
                 </ul>
             </div>
-        </div>
+        </div> -->
         <div class="sidebar-widget mt-50">
             <h4 class="pro-sidebar-title">Tag </h4>
             <div class="sidebar-widget-tag mt-25">

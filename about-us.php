@@ -19,14 +19,14 @@
                     <div class="story-img">
                         <a href="#"><img src="assets/img/product/sales3.png" alt=""></a>
                         <div class="about-logo">
-                            <h3>LOGO</h3>
+                            <h3 style="font-size: 20px;">SHAMEEPHER</h3>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-6">
                     <div class="story-details pl-50">
                         <div class="story-details-top">
-                            <h2>WELCOME TO <span>your company</span></h2>
+                            <h2>WELCOME TO <span>SHAMEEPHER</span></h2>
                             <p>Your Company provide how all this mistaken idea of denouncing pleasure and sing pain was born an will give you a complete account of the system, and expound the actual teachings of the eat explorer. </p>
                         </div>
                         <div class="story-details-bottom">

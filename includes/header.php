@@ -1,6 +1,7 @@
 <?php 
 session_start(); //start session
 require_once("includes/db.php");
+include_once("functions/functions.php");
 setlocale(LC_MONETARY,"en_US"); // US national format (see : http://php.net/money_format)
 ?>
 <!doctype html>
@@ -12,7 +13,7 @@ setlocale(LC_MONETARY,"en_US"); // US national format (see : http://php.net/mone
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicons.png">
+    <link rel="shortcut icon" type="image/x-icon" href="assets/img/logo/logo.png">
     
     <!-- CSS
     ============================================ -->
@@ -25,61 +26,65 @@ setlocale(LC_MONETARY,"en_US"); // US national format (see : http://php.net/mone
     <link rel="stylesheet" href="assets/css/plugins.css">
     <!-- Main Style CSS -->
     <link rel="stylesheet" href="assets/css/style.css">
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- Modernizer JS -->
     <script src="assets/js/vendor/modernizr-2.8.3.min.js"></script>
     <!-- jQuery JS -->
 	<script src="assets/js/vendor/jquery-1.12.4.min.js"></script>
     <!-- New JS -->
-
+  
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/custom.css">
     <script>
-	$(document).ready(function(){	
-			$(".form-item").submit(function(e){
-				var form_data = $(this).serialize();
-				var button_content = $(this).find('button[type=submit]');
-				button_content.html('Adding...'); //Loading button text 
+		$(document).ready(function(){	
+				$(".form-item").submit(function(e){
+					var form_data = $(this).serialize();
+					var button_content = $(this).find('button[type=submit]');
+					button_content.html('Adding...'); //Loading button text 
 
-				$.ajax({ //make ajax request to cart_process.php
-					url: "cart_process.php",
-					type: "POST",
-					dataType:"json", //expect json value from server
-					data: form_data
-				}).done(function(data){ //on Ajax success
-					$("#cart-info").html(data.items); //total items in cart-info element
-					button_content.html('Add to Cart'); //reset button text to original text
-					alert("Item added to Cart!"); //alert user
-					if($(".shopping-cart-box").css("display") == "block"){ //if cart box is still visible
-						$(".cart-box").trigger( "click" ); //trigger click to update the cart box.
-					}
-				})
-				e.preventDefault();
+					$.ajax({ //make ajax request to cart_process.php
+						url: "cart_process.php",
+						type: "POST",
+						dataType:"json", //expect json value from server
+						data: form_data
+					}).done(function(data){ //on Ajax success
+						$("#cart-info").html(data.items); //total items in cart-info element
+						button_content.html('Add to Cart'); //reset button text to original text
+						alert("Item added to Cart!"); //alert user
+						if($(".shopping-cart-box").css("display") == "block"){ //if cart box is still visible
+							$(".cart-box").trigger( "click" ); //trigger click to update the cart box.
+						}
+					})
+					e.preventDefault();
+				});
+
+			//Show Items in Cart
+			$( ".cart-box").click(function(e) { //when user clicks on cart box
+				e.preventDefault(); 
+				$(".shopping-cart-box").fadeIn(); //display cart box
+				$("#shopping-cart-results").html('<img src="../loading.gif">'); //show loading image
+				$("#shopping-cart-results" ).load( "cart_process.php", {"load_cart":"1"}); //Make ajax request using jQuery Load() & update results
+			});
+			
+			//Close Cart
+			$( ".close-shopping-cart-box").click(function(e){ //user click on cart box close link
+				e.preventDefault(); 
+				$(".shopping-cart-box").fadeOut(); //close cart-box
+			});
+			
+			//Remove items from cart
+			$("#shopping-cart-results").on('click', 'a.remove-item', function(e) {
+				e.preventDefault(); 
+				var pcode = $(this).attr("data-code"); //get product code
+				$(this).parent().fadeOut(); //remove item element from box
+				$.getJSON( "cart_process.php", {"remove_code":pcode} , function(data){ //get Item count from Server
+					$("#cart-info").html(data.items); //update Item count in cart-info
+					$(".cart-box").trigger( "click" ); //trigger click on cart-box to update the items list
+				});
 			});
 
-		//Show Items in Cart
-		$( ".cart-box").click(function(e) { //when user clicks on cart box
-			e.preventDefault(); 
-			$(".shopping-cart-box").fadeIn(); //display cart box
-			$("#shopping-cart-results").html('<img src="../loading.gif">'); //show loading image
-			$("#shopping-cart-results" ).load( "cart_process.php", {"load_cart":"1"}); //Make ajax request using jQuery Load() & update results
 		});
-		
-		//Close Cart
-		$( ".close-shopping-cart-box").click(function(e){ //user click on cart box close link
-			e.preventDefault(); 
-			$(".shopping-cart-box").fadeOut(); //close cart-box
-		});
-		
-		//Remove items from cart
-		$("#shopping-cart-results").on('click', 'a.remove-item', function(e) {
-			e.preventDefault(); 
-			var pcode = $(this).attr("data-code"); //get product code
-			$(this).parent().fadeOut(); //remove item element from box
-			$.getJSON( "cart_process.php", {"remove_code":pcode} , function(data){ //get Item count from Server
-				$("#cart-info").html(data.items); //update Item count in cart-info
-				$(".cart-box").trigger( "click" ); //trigger click on cart-box to update the items list
-			});
-		});
-
-	});
 	</script>
 
 </head>
@@ -92,7 +97,7 @@ setlocale(LC_MONETARY,"en_US"); // US national format (see : http://php.net/mone
 	                <div class="col-xl-2 col-lg-2">
 	                    <div class="logo pt-40">
 	                        <a href="index.php">
-	                            <img src="assets/img/logo/company-logo-2.svg" alt="">
+	                            <img src="assets/img/logo/logo.png" width="176 px" height="80 px" style="margin-top: -25px" alt="Shameepher">
 	                        </a>
 	                    </div>
 	                </div>
@@ -288,12 +293,16 @@ echo "Your Cart is empty";
 	                                    <li>
 	                                        <h4>Account</h4>
 	                                        <ul>
+	                                        	<?php if(isset($_SESSION['user_uni_no'])) { ?>
 	                                        	<li><a href="my-account.php">My Account</a></li>
 	                                            <li><a href="cart-page.php">Cart Page </a></li>
 		                                        <li><a href="checkout.php">Checkout </a></li>
 		                                        <li><a href="compare-page.php">Compare </a></li>
 		                                        <li><a href="wishlist.php">Wishlist </a></li>
+		                                        <li><a href="logout.php">Logout</a></li>
+		                                    	<?php } else { ?>
 	                                            <li><a href="login-register.php">Login/Register</a></li>
+	                                       		<?php } ?>
 	                                        </ul>
 	                                    </li>
 	                                </ul>

@@ -7,8 +7,8 @@
                     <div class="row align-items-center">
                         <div class="col-xl-6 col-lg-6 col-md-6 col-12 col-sm-6">
                             <div class="slider-content slider-animated-1">
-                                <h1 class="animated">Sleepwear for all Ages</h1>
-                                <p class="animated">Lorem Ipsum is simply dummy text of the printing and typesetting industry. It is a long established fact that a reader.</p>
+                                <h1 class="animated">UNIQUE AND TIMELESS SLEEPWEAR AND LOUNGEWEAR</h1>
+                                <p class="animated">Shameepher sets combine glamour, comfort, and affordability. Everything the modern woman dreams of.</p>
                                 <div class="slider-btn btn-hover">
                                     <a class="animated" href="shop.php">Shop Now <i class="sli sli-basket-loaded"></i></a>
                                 </div>
@@ -27,8 +27,8 @@
                     <div class="row align-items-center">
                         <div class="col-xl-6 col-lg-6 col-md-6 col-12 col-sm-6">
                             <div class="slider-content slider-animated-1">
-                                <h1 class="animated">Sleepwear for all Ages</h1>
-                                <p class="animated">Lorem Ipsum is simply dummy text of the printing and typesetting industry. It is a long established fact that a reader.</p>
+                                <h1 class="animated">UNIQUE AND TIMELESS SLEEPWEAR AND LOUNGEWEAR</h1>
+                                <p class="animated">Shameepher sets combine glamour, comfort, and affordability. Everything the modern woman dreams of.</p>
                                 <div class="slider-btn btn-hover">
                                     <a class="animated" href="shop.php">Shop Now <i class="sli sli-basket-loaded"></i></a>
                                 </div>
@@ -80,13 +80,13 @@
             </div>
             <div class="product-tab-list nav pb-60 text-center">
                 <a class="active" href="#product-1" data-toggle="tab">
-                    <h4>Category 1 </h4>
+                    <h4>Pajama Sets</h4>
                 </a>
                 <a href="#product-2" data-toggle="tab">
-                    <h4>Category 2 </h4>
+                    <h4>Robes</h4>
                 </a>
                 <a href="#product-3" data-toggle="tab">
-                    <h4>Category 3</h4>
+                    <h4>Shorts</h4>
                 </a>
             </div>
             <div class="tab-content jump-2">

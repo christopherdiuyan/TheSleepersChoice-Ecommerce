@@ -1,0 +1,47 @@
+/*NEW CUSTOM CSS*/
+.flex-c-m {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    justify-content: center;
+    -ms-align-items: center;
+    align-items: center;
+}
+.flex-c-m a:hover{
+    color: white;
+}
+.login100-social-item {
+    font-size: 25px;
+    color: #fff;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin: 5px;
+}
+.bg1 {
+    background-color: #3b5998;
+}
+.bg1:hover{
+    background-color: #868e96;
+}
+.bg2 {
+    background-color: #1da1f2;
+}
+.bg2:hover{
+    background-color: #868e96;
+}
+.bg3 {
+    background-color: #ea4335;
+}
+.bg3:hover{
+    background-color: #868e96;
+}

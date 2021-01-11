@@ -1,7 +1,5 @@
 <?php 
 
-// require_once("includes/db.php");
-
 /// begin getRealIpUser functions ///
 
 function getRealIpUser(){
