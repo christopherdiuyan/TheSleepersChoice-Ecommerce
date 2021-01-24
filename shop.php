@@ -30,7 +30,7 @@
                                     <option value=""> Z to A</option>
                                 </select>
                             </div>
-                            <p>Showing 1–<?php echo $_SESSION['total_item'] ?> of <?php echo $_SESSION['total_item'] ?> result</p>
+                            <p>Showing 1–12 of 12 result</p>
                         </div>
                         <div class="shop-tab nav">
                             <a class="active" href="#shop-grid" data-toggle="tab">

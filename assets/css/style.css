@@ -3060,7 +3060,7 @@ textarea:focus {
             text-align: center;
             padding: 0;
             cursor: pointer;
-            z-index: 99; }
+            }
             .ht-products .ht-product .ht-product-inner .ht-product-image-wrap .ht-product-image .ht-product-image-slider .slick-arrow i {
               font-size: 18px;
               line-height: 30px; }
@@ -3334,7 +3334,7 @@ textarea:focus {
         -ms-flex-pack: start;
         justify-content: flex-start;
         position: relative;
-        z-index: 99; }
+        }
         .ht-products .ht-product .ht-product-inner .ht-product-content .ht-product-action ul {
           display: -webkit-box;
           display: -ms-flexbox;
@@ -3983,7 +3983,7 @@ textarea:focus {
       display: inline-block;
       line-height: 1;
       padding: 23px 38px 23px;
-      z-index: 99; }
+      }
       .product-details-content .pro-details-quality .pro-details-cart a:hover {
         background-color: #ff3535; }
       @media only screen and (max-width: 767px) {
@@ -5343,7 +5343,6 @@ textarea:focus {
       padding: 4px 11px 5px;
       position: absolute;
       top: 20px;
-      z-index: 99;
       font-weight: 700;
       font-size: 14px;
       text-transform: uppercase;
@@ -5353,7 +5352,7 @@ textarea:focus {
       position: absolute;
       bottom: 20px;
       left: 20px;
-      z-index: 99; }
+      }
       .product-details-img .zoompro-span .product-video a {
         background-color: #ff3535;
         color: #fff;
@@ -5391,7 +5390,6 @@ textarea:focus {
       -ms-transform: translateY(-50%);
       transform: translateY(-50%);
       cursor: pointer;
-      z-index: 99;
       width: 30px;
       height: 30px;
       line-height: 30px;
@@ -5448,7 +5446,6 @@ textarea:focus {
       -webkit-transform: translateX(-50%);
       -ms-transform: translateX(-50%);
       transform: translateX(-50%);
-      z-index: 99;
       width: 30px;
       height: 30px;
       line-height: 30px;
@@ -5960,7 +5957,8 @@ h3.cart-page-title {
     .discount-code-wrapper .title-wrap .section-bg-gray {
       background-color: #f8f9f9;
       position: relative;
-      z-index: 99; }
+      z-index: 9;
+      }
   .cart-tax .tax-wrapper,
   .discount-code-wrapper .tax-wrapper {
     margin-top: 22px; }
@@ -7417,4 +7415,3 @@ h3.cart-page-title {
   padding: 20px 0; }
 
 /*-------- Start My Account Page Wrapper --------*/
-

@@ -15,66 +15,6 @@
         }
     });
     
-    
-    /*--
-    Cart active
-    -----------------------------------*/
-    if ($('.cart-wrap').length) {
-        var $body = $('body'),
-            $cartWrap = $('.cart-wrap'),
-            $cartContent = $cartWrap.find('.shopping-cart-content');
-        $cartWrap.on('click', '.icon-cart-active', function(e) {
-            e.preventDefault();
-            var $this = $(this);
-            if (!$this.parent().hasClass('show')) {
-                $this.siblings('.shopping-cart-content').addClass('show').parent().addClass('show');
-            } else {
-                $this.siblings('.shopping-cart-content').removeClass('show').parent().removeClass('show');
-            }
-        });
-        /*Close When Click Close Button*/
-        $cartWrap.on('click', '.cart-close', function(e) {
-            e.preventDefault();
-            var $this = $(this);
-            $this.closest('.cart-wrap').removeClass('show').find('.shopping-cart-content').removeClass('show');
-        });
-        /*Close When Click Outside*/
-        $body.on('click', function(e) {
-            var $target = e.target;
-            if (!$($target).is('.cart-wrap') && !$($target).parents().is('.cart-wrap') && $cartWrap.hasClass('show')) {
-                $cartWrap.removeClass('show');
-                $cartContent.removeClass('show');
-            }
-        });
-    }
-    
-    
-    /*--
-    Setting active
-    -----------------------------------*/
-    if ($('.setting-wrap').length) {
-        var $body2 = $('body'),
-            $parloDropdown2 = $('.setting-wrap'),
-            $parloDropdownMenu2 = $parloDropdown2.find('.setting-content');
-        $parloDropdown2.on('click', '.setting-active', function(e) {
-            e.preventDefault();
-            var $this = $(this);
-            if (!$this.parent().hasClass('show')) {
-                $this.siblings('.setting-content').addClass('show').slideDown().parent().addClass('show');
-            } else {
-                $this.siblings('.setting-content').removeClass('show').slideUp().parent().removeClass('show');
-            }
-        });
-        /*Close When Click Outside*/
-        $body2.on('click', function(e) {
-            var $target = e.target;
-            if (!$($target).is('.setting-wrap') && !$($target).parents().is('.setting-wrap') && $parloDropdown2.hasClass('show')) {
-                $parloDropdown2.removeClass('show');
-                $parloDropdownMenu2.removeClass('show').slideUp();
-            }
-        });
-    }
-    
     /*---- Slider active ------*/
     $('.slider-active').owlCarousel({
         loop: true,

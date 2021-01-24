@@ -2,7 +2,7 @@
 session_start(); //start session
 require_once("includes/db.php");
 include_once("functions/functions.php");
-setlocale(LC_MONETARY,"en_US"); // US national format (see : http://php.net/money_format)
+require_once('assets/php/config.php');
 ?>
 <!doctype html>
 <html class="no-js" lang="zxx">
@@ -15,8 +15,7 @@ setlocale(LC_MONETARY,"en_US"); // US national format (see : http://php.net/mone
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="assets/img/logo/logo.png">
     
-    <!-- CSS
-    ============================================ -->
+    <!-- CSS ============================================ -->
    
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
@@ -36,60 +35,10 @@ setlocale(LC_MONETARY,"en_US"); // US national format (see : http://php.net/mone
   
     <!-- Custom CSS -->
     <link rel="stylesheet" href="assets/css/custom.css">
-    <script>
-		$(document).ready(function(){	
-				$(".form-item").submit(function(e){
-					var form_data = $(this).serialize();
-					var button_content = $(this).find('button[type=submit]');
-					button_content.html('Adding...'); //Loading button text 
-
-					$.ajax({ //make ajax request to cart_process.php
-						url: "cart_process.php",
-						type: "POST",
-						dataType:"json", //expect json value from server
-						data: form_data
-					}).done(function(data){ //on Ajax success
-						$("#cart-info").html(data.items); //total items in cart-info element
-						button_content.html('Add to Cart'); //reset button text to original text
-						alert("Item added to Cart!"); //alert user
-						if($(".shopping-cart-box").css("display") == "block"){ //if cart box is still visible
-							$(".cart-box").trigger( "click" ); //trigger click to update the cart box.
-						}
-					})
-					e.preventDefault();
-				});
-
-			//Show Items in Cart
-			$( ".cart-box").click(function(e) { //when user clicks on cart box
-				e.preventDefault(); 
-				$(".shopping-cart-box").fadeIn(); //display cart box
-				$("#shopping-cart-results").html('<img src="../loading.gif">'); //show loading image
-				$("#shopping-cart-results" ).load( "cart_process.php", {"load_cart":"1"}); //Make ajax request using jQuery Load() & update results
-			});
-			
-			//Close Cart
-			$( ".close-shopping-cart-box").click(function(e){ //user click on cart box close link
-				e.preventDefault(); 
-				$(".shopping-cart-box").fadeOut(); //close cart-box
-			});
-			
-			//Remove items from cart
-			$("#shopping-cart-results").on('click', 'a.remove-item', function(e) {
-				e.preventDefault(); 
-				var pcode = $(this).attr("data-code"); //get product code
-				$(this).parent().fadeOut(); //remove item element from box
-				$.getJSON( "cart_process.php", {"remove_code":pcode} , function(data){ //get Item count from Server
-					$("#cart-info").html(data.items); //update Item count in cart-info
-					$(".cart-box").trigger( "click" ); //trigger click on cart-box to update the items list
-				});
-			});
-
-		});
-	</script>
-
 </head>
 <body>
 <div class="wrapper">
+
 	<header class="header-area sticky-bar">
 	    <div class="main-header-wrap">
 	        <div class="container">
@@ -97,7 +46,7 @@ setlocale(LC_MONETARY,"en_US"); // US national format (see : http://php.net/mone
 	                <div class="col-xl-2 col-lg-2">
 	                    <div class="logo pt-40">
 	                        <a href="index.php">
-	                            <img src="assets/img/logo/logo.png" width="176 px" height="80 px" style="margin-top: -25px" alt="Shameepher">
+	                            <img src="assets/img/logo/company-logo-2.svg" width="176 px" height="80 px" style="margin-top: -25px" alt="Shameepher">
 	                        </a>
 	                    </div>
 	                </div>
@@ -122,165 +71,22 @@ setlocale(LC_MONETARY,"en_US"); // US national format (see : http://php.net/mone
 	                <div class="col-xl-3 col-lg-3">
 	                    <div class="header-right-wrap pt-40">
 	                        <div class="header-search">
-	                            <a class="search-active" href="#"><i class="sli sli-magnifier"></i></a>
+	                            <a class="search-active" href="javascript:void(0)"><i class="sli sli-magnifier"></i></a>
 	                        </div>
 	                        <div class="cart-wrap">
 	                            <button class="icon-cart-active">
 	                                <span class="icon-cart">
 	                                    <i class="sli sli-bag"></i>
-	                                    <span class="count-style">
-	                                    	<?php 
-											if(isset($_SESSION["products"])){
-												echo count($_SESSION["products"]); 
-											}else{
-												echo 0; 
-											}
-											?>
+	                                    <span class="count-style">0
 	                                    </span>
 	                                </span>
 	                                <span class="cart-price">
-	                                    $320.00
+	                                    ₱ 0.00
 	                                </span>
 	                            </button>
 	                            <div class="shopping-cart-content">
-	                                <div class="shopping-cart-top">
-	                                    <h4>Shoping Cart</h4>
-	                                    <a class="cart-close" href="#"><i class="sli sli-close"></i></a>
-	                                </div>
-	                                <!-- Shopping Cart -->
- <?php
-if(isset($_SESSION["products"]) && count($_SESSION["products"])>0){
-$total 			= 0;
-$list_tax 		= '';
-$cart_box 		= '<ul>';
-
-foreach($_SESSION["products"] as $product){ //Print each item, quantity and price.
-$product_name = $product["product_name"];
-$product_qty = $product["product_quantity"];
-$product_price = $product["product_price"];
-$product_code = $product["product_id"];
-$product_img = $product["product_image"];
-// $product_color = $product["product_color"];
-// $product_size = $product["product_size"];
-
-$item_price 	= sprintf("%01.2f",($product_price * $product_qty));  // price x qty = total item price
-
-$cart_box 		.=  "
-<li> $product_code &ndash;  $product_name (Qty : $product_qty | $product_color | $product_size) <span> $currency. $item_price </span></li>
-<li class=\"single-shopping-cart\">
-<div class=\"shopping-cart-img\">
-    <a href=\"#\"><img alt=\"\" src=\"assets/img/cart/cart-1.svg\"></a>
-    <div class=\"item-close\">
-        <a href=\"#\"><i class=\"sli sli-close\"></i></a>
-    </div>
-</div>
-<div class=\"shopping-cart-title\">
-    <h4><a href=\"#\">$product_name </a></h4>
-    <span>$product_qty". " x " ."$product_price | $item_price</span>
-</div>
-</li>
-";
-
-$subtotal 		= ($product_price * $product_qty); //Multiply item quantity * price
-$total 			= ($total + $subtotal); //Add up to total price
-}
-
-$grand_total = $total + $shipping_cost; //grand total
-
-foreach($taxes as $key => $value){ //list and calculate all taxes in array
-$tax_amount 	= round($total * ($value / 100));
-$tax_item[$key] = $tax_amount;
-$grand_total 	= $grand_total + $tax_amount; 
-}
-
-foreach($tax_item as $key => $value){ //taxes List
-$list_tax .= $key. ' '. $currency. sprintf("%01.2f", $value).'<br />';
-}
-
-$shipping_cost = ($shipping_cost)?'Shipping Cost : '.$currency. sprintf("%01.2f", $shipping_cost).'<br />':'';
-
-//Print Shipping, VAT and Total
-$cart_box .= "<li class=\"view-cart-total\">$shipping_cost  $list_tax <hr>Payable Amount : $currency ".sprintf("%01.2f", $grand_total)."</li>";
-$cart_box .= "</ul>";
-
-echo $cart_box;
-}else{
-echo "Your Cart is empty";
-}
-?>
-	                                <!-- <ul>
-	                                    <li class="single-shopping-cart">
-	                                        <div class="shopping-cart-img">
-	                                            <a href="#"><img alt="" src="assets/img/cart/cart-1.svg"></a>
-	                                            <div class="item-close">
-	                                                <a href="#"><i class="sli sli-close"></i></a>
-	                                            </div>
-	                                        </div>
-	                                        <div class="shopping-cart-title">
-	                                            <h4><a href="#">Product Name </a></h4>
-	                                            <span>1 x 90.00</span>
-	                                        </div>
-	                                    </li>
-	                                    <li class="single-shopping-cart">
-	                                        <div class="shopping-cart-img">
-	                                            <a href="#"><img alt="" src="assets/img/cart/cart-2.svg"></a>
-	                                            <div class="item-close">
-	                                                <a href="#"><i class="sli sli-close"></i></a>
-	                                            </div>
-	                                        </div>
-	                                        <div class="shopping-cart-title">
-	                                            <h4><a href="#">Product Name</a></h4>
-	                                            <span>1 x 90.00</span>
-	                                        </div>
-	                                    </li>
-	                                    <li class="single-shopping-cart">
-	                                        <div class="shopping-cart-img">
-	                                            <a href="#"><img alt="" src="assets/img/cart/cart-2.svg"></a>
-	                                            <div class="item-close">
-	                                                <a href="#"><i class="sli sli-close"></i></a>
-	                                            </div>
-	                                        </div>
-	                                        <div class="shopping-cart-title">
-	                                            <h4><a href="#">Product Name</a></h4>
-	                                            <span>1 x 90.00</span>
-	                                        </div>
-	                                    </li>
-	                                    <li class="single-shopping-cart">
-	                                        <div class="shopping-cart-img">
-	                                            <a href="#"><img alt="" src="assets/img/cart/cart-2.svg"></a>
-	                                            <div class="item-close">
-	                                                <a href="#"><i class="sli sli-close"></i></a>
-	                                            </div>
-	                                        </div>
-	                                        <div class="shopping-cart-title">
-	                                            <h4><a href="#">Product Name</a></h4>
-	                                            <span>1 x 90.00</span>
-	                                        </div>
-	                                    </li>
-	                                    <li class="single-shopping-cart">
-	                                        <div class="shopping-cart-img">
-	                                            <a href="#"><img alt="" src="assets/img/cart/cart-2.svg"></a>
-	                                            <div class="item-close">
-	                                                <a href="#"><i class="sli sli-close"></i></a>
-	                                            </div>
-	                                        </div>
-	                                        <div class="shopping-cart-title">
-	                                            <h4><a href="#">Product asdName</a></h4>
-	                                            <span>1 x 90.00</span>
-	                                        </div>
-	                                    </li>
-	                                </ul> -->
-
-
-	                                <div class="shopping-cart-bottom">
-	                                    <div class="shopping-cart-total">
-	                                        <h4>Total : <span class="shop-total">$260.00</span></h4>
-	                                    </div>
-	                                    <div class="shopping-cart-btn btn-hover text-center">
-	                                        <a class="default-btn" href="checkout.php">checkout</a>
-	                                        <a class="default-btn" href="cart-page.php">view cart</a>
-	                                    </div>
-	                                </div>
+	                            	<span class="cart_details"></span>
+	                                
 	                            </div>
 	                        </div>
 
@@ -301,6 +107,8 @@ echo "Your Cart is empty";
 		                                        <li><a href="wishlist.php">Wishlist </a></li>
 		                                        <li><a href="logout.php">Logout</a></li>
 		                                    	<?php } else { ?>
+	                                    		<li><a href="cart-page.php">Cart Page </a></li>
+	                                    		<li><a href="wishlist.php">Wishlist </a></li>
 	                                            <li><a href="login-register.php">Login/Register</a></li>
 	                                       		<?php } ?>
 	                                        </ul>
@@ -336,7 +144,7 @@ echo "Your Cart is empty";
 	                <div class="col-6">
 	                    <div class="mobile-logo">
 	                        <a href="index.php">
-	                            <img alt="" src="assets/img/logo/logo.png">
+	                            <img alt="" src="assets/img/logo/company-logo-2.svg">
 	                        </a>
 	                    </div>
 	                </div>
@@ -346,46 +154,16 @@ echo "Your Cart is empty";
 	                            <button class="icon-cart-active">
 	                                <span class="icon-cart">
 	                                    <i class="sli sli-bag"></i>
-	                                    <span class="count-style">02</span>
+	                                    <span class="count-style">0
+	                                    </span>
 	                                </span>
 	                                <span class="cart-price">
-	                                    $320.00
+	                                    ₱ 0.00
 	                                </span>
 	                            </button>
-	                            <div class="shopping-cart-content">
-	                                <div class="shopping-cart-top">
-	                                    <h4>Shoping Cart</h4>
-	                                    <a class="cart-close" href="#"><i class="sli sli-close"></i></a>
-	                                </div>
-	                                <ul>
-	                                    <li class="single-shopping-cart">
-	                                        <div class="shopping-cart-img">
-	                                            <a href="#"><img alt="" src="assets/img/cart/cart-1.svg"></a>
-	                                        </div>
-	                                        <div class="shopping-cart-title">
-	                                            <h4><a href="#">Product Name </a></h4>
-	                                            <span>1 x 90.00</span>
-	                                        </div>
-	                                    </li>
-	                                    <li class="single-shopping-cart">
-	                                        <div class="shopping-cart-img">
-	                                            <a href="#"><img alt="" src="assets/img/cart/cart-2.svg"></a>
-	                                        </div>
-	                                        <div class="shopping-cart-title">
-	                                            <h4><a href="#">Product Name</a></h4>
-	                                            <span>1 x 90.00</span>
-	                                        </div>
-	                                    </li>
-	                                </ul>
-	                                <div class="shopping-cart-bottom">
-	                                    <div class="shopping-cart-total">
-	                                        <h4>Total : <span class="shop-total">$260.00</span></h4>
-	                                    </div>
-	                                    <div class="shopping-cart-btn btn-hover text-center">
-	                                        <a class="default-btn" href="checkout.php">checkout</a>
-	                                        <a class="default-btn" href="cart-page.php">view cart</a>
-	                                    </div>
-	                                </div>
+	                            <div class="shopping-cart-content" class="popover_content_wrapper" >
+	                            	<span class="cart_details"></span>
+	                                
 	                            </div>
 	                        </div>
 	                        <div class="mobile-off-canvas">
@@ -397,7 +175,7 @@ echo "Your Cart is empty";
 	        </div>
 	    </div>
 	</header>
-
+	
 	<div class="mobile-off-canvas-active">
         <a class="mobile-aside-close"><i class="sli sli-close"></i></a>
         <div class="header-mobile-aside-wrap">

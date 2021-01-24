@@ -4,7 +4,6 @@ session_start();
 require_once('includes/db.php');
 require_once('assets/php/config.php');
 //require_once('functions/functions.php');
-
 if(isset($_POST["action"]))
 {
 
@@ -26,11 +25,14 @@ if(isset($_POST["action"]))
 		 AND product_category IN('".$cat_filter."')
 		";
 	}
-
+    $query .= ' LIMIT 6';
 	$statement = $connect->prepare($query);
 	$statement->execute();
 	$result = $statement->fetchAll();
-	$_SESSION['total_item'] = $total_row = $statement->rowCount();
+	$total_row = $statement->rowCount();
+    echo '<link rel="stylesheet" href="custom.css"> 
+            <div id="notification-area" style="z-index: 9999">
+            </div>';
 
 	$output = '';
 
@@ -51,12 +53,12 @@ if(isset($_POST["action"]))
                     <form class="form-item">
                     <div class="ht-product-inner">
                         <div class="ht-product-image-wrap">
-                            <a href="product-details.php" class="ht-product-image"> <img src="'. $prodImg .'" alt='. $row['product_title'] .'> </a>
+                            <a href="product-details.php?prodID='. $row["sku"].'" class="ht-product-image"> <img src="'. $prodImg .'" alt="'. $row['product_title'] .'"> </a>
 
                             <div class="ht-product-action">
                                 <ul>
-                                    <li><a href="#" data-toggle="modal" data-target="#exampleModal"><i class="sli sli-bag"></i><span class="ht-product-action-tooltip">Add to Cart</span></a></li>
-                                    <li><a  href="#"><i class="sli sli-heart"></i><span class="ht-product-action-tooltip">Add to Wishlist</span></a></li>
+                                    <li><a href="javascript:void(0)" data-toggle="modal" data-target="#viewProduct" id="'. $row['sku'] .'" class="show-modal"><i class="sli sli-bag"></i><span class="ht-product-action-tooltip">Add to Cart</span></a></li>
+                                    <li><a  href="javascript:void(0)"><i class="sli sli-heart add_to_wishlist"  id="'. $row['sku'] .'"></i><span class="ht-product-action-tooltip" name="add_to_wishlist">Add to Wishlist</span></a></li>
                                     <li>
                                 </ul>
                             </div>
@@ -64,8 +66,12 @@ if(isset($_POST["action"]))
 
                         <div class="ht-product-content">
                             <div class="ht-product-content-inner">
+                                <input type="hidden" name="hidden_name" id="img'. $row['sku'] .'" value="'. $prodImg .'" />
+                                <input type="hidden" name="hidden_name" id="name'. $row['sku'] .'" value="'. $row['product_title'] .'" />
+                                <input type="hidden" name="hidden_price" id="price'. $row['sku'] .'" value="'. $selling_price .'" />
+                                <input type="hidden" name="qty" id="quantity'. $row['sku'] .'" value="1">
                                 <div class="ht-product-categories"><a href="#">'. $row['product_category'] .'</a></div>
-                                <h4 class="ht-product-title"><a href="product-details.php">'. $row['product_title'] .'</a></h4>
+                                <h4 class="ht-product-title"><a href="product-details.php?prod_id='. $row['sku'] .'">'. $row['product_title'] .'</a></h4>
                                 <div class="ht-product-price">
                                     <span class="new">₱'. number_format($selling_price, 2, '.', ',') .'</span>
                                     <span class="old">'. $priceOld .'</span>
@@ -79,24 +85,13 @@ if(isset($_POST["action"]))
                                             <i class="sli sli-star"></i>
                                             <i class="sli sli-star"></i>
                                         </span>
-                                    <i class="sli sli-star"></i>
-                                    <i class="sli sli-star"></i>
-                                    <i class="sli sli-star"></i>
-                                    <i class="sli sli-star"></i>
-                                    <i class="sli sli-star"></i>
+                                        <i class="sli sli-star"></i>
+                                        <i class="sli sli-star"></i>
+                                        <i class="sli sli-star"></i>
+                                        <i class="sli sli-star"></i>
+                                        <i class="sli sli-star"></i>
                                     </span>
                                 </div>
-                            </div>
-                            <div class="ht-product-action">
-                                <ul>
-                                    <li><a href="#"><i class="sli sli-magnifier"></i><span class="ht-product-action-tooltip">Quick View</span></a></li>
-                                    <li><a href="#"><i class="sli sli-heart"></i><span class="ht-product-action-tooltip">Add to Wishlist</span></a></li>
-                                    <li><a href="#"><i class="sli sli-refresh"></i><span class="ht-product-action-tooltip">Add to Compare</span></a></li>
-                                    <li><a href="#"><i class="sli sli-bag"></i><span class="ht-product-action-tooltip">Add to Cart</span></a></li>
-                                </ul>
-                            </div>
-                            <div class="ht-product-countdown-wrap">
-                                <div class="ht-product-countdown" data-countdown="2020/01/01"></div>
                             </div>
                         </div>
                     </div>
@@ -139,7 +134,7 @@ if(isset($_POST["action_list"]))
          AND product_category IN('".$cat_filter."')
         ";
     }
-    $query .= "LIMIT 4";
+    $query .= "LIMIT 3";
     $statement = $connect->prepare($query);
     $statement->execute();
     $result = $statement->fetchAll();
@@ -166,7 +161,7 @@ if(isset($_POST["action_list"]))
                                 <img src="'. $prodImg .'" alt='. $row['product_title'] .'>
                             </a>
                             <div class="product-quickview">
-                                <a href="#" title="Quick View" data-toggle="modal" data-target="#exampleModal"><i class="sli sli-magnifier-add"></i></a>
+                                <a href="javascript:void(0)" data-toggle="modal" data-target="#viewProduct" id="'. $row['sku'] .'" class="show-modal"><i class="sli sli-magnifier-add"></i></a>
                             </div>  
                         </div>
                     </div>
@@ -212,49 +207,7 @@ if(isset($_POST["action_list"]))
     //getPaginator($total_row);
 
 }
-/* 
- <div class="shop-list-wrap shop-list-mrg2 shop-list-mrg-none mb-30">
-                                        <div class="row">
-                                            <div class="col-lg-4 col-md-4">
-                                                <div class="product-list-img">
-                                                    <a href="product-details.php">
-                                                        <img src="assets/img/product/product-list-1.svg" alt="Universal Product Style">
-                                                    </a>
-                                                    <div class="product-quickview">
-                                                        <a href="#" title="Quick View" data-toggle="modal" data-target="#exampleModal"><i class="sli sli-magnifier-add"></i></a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-8 col-md-8 align-self-center">
-                                                <div class="shop-list-content">
-                                                    <h3><a href="product-details.php">Demo Product Name</a></h3>
-                                                    <p>It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard The standard chunk.</p>
-                                                    <span>Category</span>
-                                                    <div class="shop-list-price-action-wrap">
-                                                        <div class="shop-list-price-ratting">
-                                                            <div class="ht-product-list-price">
-                                                                <span class="new">$40.00</span>
-                                                                <span class="old">$70.00</span>
-                                                            </div>
-                                                            <div class="ht-product-list-ratting">
-                                                                <i class="sli sli-star"></i>
-                                                                <i class="sli sli-star"></i>
-                                                                <i class="sli sli-star"></i>
-                                                                <i class="sli sli-star"></i>
-                                                                <i class="sli sli-star"></i>
-                                                            </div>
-                                                        </div>
-                                                        <div class="ht-product-list-action">
-                                                            <a class="list-wishlist" title="Add To Wishlist" href="#"><i class="sli sli-heart"></i></a>
-                                                            <a class="list-cart" title="Add To Cart" href="#"><i class="sli sli-basket-loaded"></i> Add to Cart</a>
-                                                            <a class="list-refresh" title="Add To Compare" href="#"><i class="sli sli-refresh"></i></a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-*/
+
 ?>
 <?php
 function getPaginator($total_row){

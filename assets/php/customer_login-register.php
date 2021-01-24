@@ -39,7 +39,7 @@ if(isset($_POST['login'])){
                         $_SESSION['user_name'] = $c_name;
                         $_SESSION['user_uni_no'] = $c_u_id;
                         
-                       echo "<script>alert('You are Logged in.')</script>"; 
+                       //echo "<script>alert('You are Logged in.')</script>"; 
                        echo "<script>window.open('../../my-account.php','_self')</script>";
                        
 
@@ -49,9 +49,8 @@ if(isset($_POST['login'])){
                         $_SESSION['user_name'] = $c_name;
                         $_SESSION['user_uni_no'] = $c_u_id;
                         
-                       echo "<script>alert('You are Logged in')</script>"; 
+                       //echo "<script>alert('You are Logged in')</script>"; 
                        echo "<script>window.open('../../checkout.php','_self')</script>";
-                       
                         
                     }
                 }  
@@ -65,12 +64,9 @@ if(isset($_POST['login'])){
     else  
     {  
         //return false; 
-        echo "<script>alert('Wrong User Details oki')</script>";
+        echo "<script>alert('Wrong User Details')</script>";
         echo "<script>window.open('../../login-register.php','_self')</script>";
     }
-
-    // echo "<script>alert('Login Sucessfully')</script>";
-    // echo "<script>window.open('../index.php','_self')</script>";
 }
 
 
@@ -82,16 +78,17 @@ if(isset($_POST['register'])){
     $c_pass = password_hash($pass, PASSWORD_DEFAULT); 
     $c_ip = getRealIpUser();
     $na = "N/A";
-    $sql = "INSERT INTO customers(customer_u_id, customer_name, customer_image, customer_contact, customer_address, customer_email, customer_pass, customer_ip) 
+    $sql = "INSERT INTO customers(customer_u_id, customer_name, customer_image, customer_contact, customer_province, customer_address, customer_email, customer_pass, customer_ip) 
     VALUES
-    (:customer_u_id, :customer_name, :customer_image, :customer_contact, :customer_address, :customer_email, :customer_pass, :customer_ip)";
+    (:customer_u_id, :customer_name, :customer_image, :customer_contact, :customer_province, :customer_address, :customer_email, :customer_pass, :customer_ip)";
 
     $query = $connect->prepare($sql);
-            
+    
     $query->bindparam(':customer_u_id', $c_u_id, PDO::PARAM_STR);
     $query->bindparam(':customer_name', $c_name, PDO::PARAM_STR);
     $query->bindparam(':customer_image', Config::$defaultImg, PDO::PARAM_STR);
     $query->bindparam(':customer_contact', $na, PDO::PARAM_STR);
+    $query->bindparam(':customer_province', $na, PDO::PARAM_STR);
     $query->bindparam(':customer_address', $na, PDO::PARAM_STR);
     $query->bindparam(':customer_email', $c_email, PDO::PARAM_STR);
     $query->bindparam(':customer_pass', $c_pass, PDO::PARAM_STR);

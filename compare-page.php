@@ -1,5 +1,7 @@
 <?php include_once("includes/header.php"); ?>
-
+    <link rel="stylesheet" href="custom.css">
+    <div id="notification-area" style="z-index: 9999">
+    </div>
     <div class="breadcrumb-area pt-35 pb-35 bg-gray">
         <div class="container">
             <div class="breadcrumb-content text-center">
@@ -83,7 +85,7 @@
                                     <td class="first-column">Add to cart</td>
                                     <td><a href="cart.php" class="check-btn">Add to Cart</a></td>
                                     <td><a href="cart.php" class="check-btn disabled">Add to Cart</a></td>
-                                    <td><a href="cart.php" class="check-btn">Add to Cart</a></td>
+                                    <td ><a href="cart.php" class="check-btn">Add to Cart</a></td>
                                 </tr>
                                 <tr>
                                     <td class="first-column">Rating</td>
