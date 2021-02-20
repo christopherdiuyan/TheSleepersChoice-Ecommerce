@@ -1,4 +1,8 @@
-<?php //require_once("includes/db.php"); ?>
+<?php 
+require_once("db.php"); 
+$stmt = $connect->query("SELECT * FROM settings");
+$row = $stmt->fetch()
+?>
 
 <style type="text/css">
     .modal-header h5{
@@ -63,7 +67,7 @@
                 </div>
                 <div class="col-lg-4 col-md-4 col-12">
                     <div class="copyright text-center pb-20">
-                        <p>Copyright © All Right Reserved</p>
+                        <p>Copyright © <?php echo date('Y'); echo " "; echo $row['company_footer'] ?></p>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-3 col-12">

@@ -10,6 +10,9 @@
     }else
     {
         include_once("includes/header.php");
+
+        $stmt = $connect->query("SELECT COUNT(sku) as total FROM products");
+        $row = $stmt->fetch();
 ?>
         <!-- Sidebar Start -->
         <aside class="sidebar" data-trigger="scrollbar">
@@ -19,17 +22,7 @@
                     <li>
                         <a href="#">Your Store</a>
                         <ul>
-                            <li class="">
-                                <a href="#">
-                                    <i class="fa fa-home"></i>
-                                    <span>Dashboard</span>
-                                </a>
-
-                                <ul>
-                                    <li class=""><a href="index.php">Dashboard</a></li>
-                                    
-                                </ul>
-                            </li>
+                            <li class=""><a href="index.php"><i class="fa fa-home"></i><span>Dashboard</span></a></li>
                             <li class="active open">
                                 <a href="#">
                                     <i class="fa fa-shopping-bag"></i>
@@ -38,103 +31,83 @@
                                 <ul>
                                     <li class="active"><a href="products.php">Products</a></li>
                                 </ul>
-                            </li>
-                            <li class="">
-                                <a href="#">
-                                    <i class="fa fa-list"></i>
-                                    <span>Categories</span>
-                                </a>
-
                                 <ul>
-                                    <li class=""><a href="ecommerce.php">Add Category</a></li>
-                                    
+                                    <li class=""><a href="categories.php">Product Categories</a></li>
                                 </ul>
                             </li>
                             <li class="">
-                                <a href="#">
+                                <a href="customers.php">
                                     <i class="fa fa-fw fa-users"></i>
                                     <span>Customers</span>
                                 </a>
-
-                                <ul>
-                                    <li class=""><a href="ecommerce.php">Customer</a></li>
-                                    
-                                </ul>
                             </li>
                             <li class="">
-                                <a href="#">
+                                <a href="orders.php">
                                     <i class="fa fa-shopping-cart"></i>
                                     <span>Orders</span>
                                 </a>
-                                <ul>
-                                    <li><a href="orders.php">Orders</a></li>
-                                    <li><a href="order-view.php">Order View</a></li>
-                                </ul>
                             </li>
                             <li class="">
-                                <a href="#">
+                                <a href="inquiries.php">
                                     <i class="fa fa-comments"></i>
                                     <span>Inquiries</span>
                                 </a>
-
-                                <ul>
-                                    <li class=""><a href="ecommerce.php">Inquiries</a></li>
-                                    
-                                </ul>
                             </li>
                         </ul>
                     </li>
-                    <li>
+                    <!-- <li>
                         <a href="#">Your Website</a>
 
                         <ul>
                             <li>
                                 <a href="#">
                                     <i class="fa fa-file"></i>
-                                    <span>Extra Pages</span>
+                                    <span>Pages</span>
                                 </a>
 
                                 <ul>
-                                    <li><a href="pricing-tables.php">Pricing Tables</a></li>
-                                    <li><a href="profile.php">Profile</a></li>
-                                    <li><a href="invoice.php">Invoice</a></li>
-                                    <li><a href="login.php">Login</a></li>
-                                    <li><a href="register.php">Register</a></li>
-                                    <li><a href="forgot-password.php">Forgot Password</a></li>
-                                    <li><a href="lock-screen.php">Lock Screen</a></li>
-                                    <li><a href="404.php">404 Error</a></li>
-                                    <li><a href="500.php">500 Error</a></li>
-                                    <li><a href="maintenance.php">Maintenance</a></li>
-                                    <li><a href="coming-soon.php">Coming Soon</a></li>
+                                    <li><a href="page-home.php">Home</a></li>
+                                    <li><a href="profile.php">Shop</a></li>
+                                    <li><a href="invoice.php">About</a></li>
+                                    <li><a href="login.php">Contact Us</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>-->
+                     <li>
+                        <a href="javascript:void(0)">Reports</a>
+                        <ul>
+                            <li class="">
+                                <a href="javascript:void(0)">
+                                    <i class="fa fa-file"></i>
+                                    <span>Reports</span>
+                                </a>
+
+                                <ul>
+                                    <li ><a href="report_stocks.php">Stocks Report</a></li>
+                                    <li ><a href="report_customers.php">Customers</a></li>
+                                    <li ><a href="report_orders.php">Customer Orders</a></li>
                                 </ul>
                             </li>
                         </ul>
                     </li>
                     <li>
-                        <a href="#">Configuration</a>
+                        <a href="javascript:void(0)">Configuration</a>
 
                         <ul>
-                            <li>
-                                <a href="#">
-                                    <i class="fa fa-file"></i>
-                                    <span>Extra Pages</span>
+                            <li class="">
+                                <a href="users.php">
+                                    <i class="fa fa-fw fa-users"></i>
+                                    <span>Users</span>
                                 </a>
-
-                                <ul>
-                                    <li><a href="pricing-tables.php">Pricing Tables</a></li>
-                                    <li><a href="profile.php">Profile</a></li>
-                                    <li><a href="invoice.php">Invoice</a></li>
-                                    <li><a href="login.php">Login</a></li>
-                                    <li><a href="register.php">Register</a></li>
-                                    <li><a href="forgot-password.php">Forgot Password</a></li>
-                                    <li><a href="lock-screen.php">Lock Screen</a></li>
-                                    <li><a href="404.php">404 Error</a></li>
-                                    <li><a href="500.php">500 Error</a></li>
-                                    <li><a href="maintenance.php">Maintenance</a></li>
-                                    <li><a href="coming-soon.php">Coming Soon</a></li>
-                                </ul>
                             </li>
-                        </ul>
+                            <li class="">
+                                <a href="settings.php">
+                                    <i class="fa fa-cogs"></i>
+                                    <span>General Settings</span>
+                                </a>
+                            </li>
+                        </ul>   
                     </li>
                 </ul>
             </div>
@@ -169,20 +142,30 @@
                     <div class="records--header">
                         <div class="title fa-shopping-bag">
                             <h3 class="h3">Products <a href="javascript:void(0)" class="btn btn-sm btn-outline-info">Manage Products</a></h3>
-                            <p>Found Total 0 Products</p>
+                            <p>Found Total <?php echo $row['total']?> Products</p>
                         </div>
 
                         <div class="actions">
                             <form action="#" class="search flex-wrap flex-md-nowrap">
                                 <input type="text" class="form-control" placeholder="Product Name..." required>
                                 <select name="select" class="form-control">
-                                    <option value="" selected>Product Category</option>
-                                    <option value="" selected>Robes</option>
+                                    <?php
+                                    $query = "SELECT * FROM product_categories ORDER BY p_cat_title"; 
+                                    $statement = $connect->prepare($query);
+                                    $statement->execute();
+                                    $result = $statement->fetchAll();
+
+                                    foreach($result as $row) 
+                                    { 
+                                    ?>
+                                        <option><?php echo $row['p_cat_title']; ?></option>
+                                    
+                                    <?php } ?>
                                 </select>
                                 <button type="submit" class="btn btn-rounded"><i class="fa fa-search"></i></button>
                             </form>
 
-                            <a href="#" class="addProduct btn btn-lg btn-rounded btn-warning">Add Product</a>
+                            <a href="javascript:void(0)" data-toggle="modal" class="addProduct btn btn-lg btn-rounded btn-warning">Add Product</a>
                         </div>
                     </div>
                     <!-- Records Header End -->
@@ -194,7 +177,7 @@
                         <table id="recordsListView">
                             <thead>
                                 <tr>
-                                    <th>ID</th>
+                                    <th>SKU</th>
                                     <th class="not-sortable">Image</th>
                                     <th>Product Name</th>
                                     <th>Category</th>
@@ -261,8 +244,8 @@
                                             <a href="#" class="btn-link" data-toggle="dropdown"><i class="fa fa-ellipsis-v"></i></a>
 
                                             <div class="dropdown-menu">
-                                                <a href="javascript:void(0)" class="dropdown-item editProduct" data-toggle="modal" id="<?php echo $row['sku'] ?>">Edit</a>
-                                                <a href="#" class="dropdown-item">Delete</a>
+                                                <a href="javascript:void(0)" class="dropdown-item editProduct" data-toggle="modal" id="<?php echo $row['sku'] ?>">Update</a>
+                                                <a href="javascript:void(0)" class="dropdown-item deleteProduct" id="<?php echo $row['sku']?>">Remove</a>
                                             </div>
                                         </div>
                                     </td>
@@ -278,7 +261,7 @@
 
             <!-- Main Footer Start -->
             <footer class="main--footer main--footer-light">
-                <p>Copyright &copy; <a href="#">DAdmin</a>. All Rights Reserved.</p>
+                <p>Copyright &copy; <?php echo date('Y') ?> <a href="index.php">SHAPHER</a>. All Rights Reserved.</p>
             </footer>
             <!-- Main Footer End -->
         </main>
@@ -293,6 +276,21 @@
                 </div>
 
                 <div class="modal-body" id="modal-edit-product">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Vertically Centered Modal End -->
+            <!-- Vertically Centered Modal Start -->
+    <div id="addProduct" class="modal fade">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <div class="modal-body" id="modal-add-product">
                     
                 </div>
             </div>

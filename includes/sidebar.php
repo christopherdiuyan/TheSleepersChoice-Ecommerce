@@ -23,7 +23,7 @@
 
                     foreach($result as $row) 
                     { 
-                        $query = "SELECT * FROM products WHERE product_category = '" . $row['p_cat_title'] . "'";
+                        $query = "SELECT * FROM products WHERE product_status = '1' AND product_category = '" . $row['p_cat_title'] . "'";
                         $statement = $connect->prepare($query);
                         $statement->execute();
                     ?>
@@ -49,54 +49,6 @@
                 <div id="slider-range"></div>
             </div>
         </div>
- <!--        <div class="sidebar-widget mt-50">
-            <h4 class="pro-sidebar-title">Colour </h4>
-            <div class="sidebar-widget-list mt-20">
-                <ul>
-                    <?php
-                    $query = "
-                    SELECT DISTINCT(product_storage) FROM product WHERE product_status = '1' ORDER BY product_storage DESC
-                    ";
-                    $statement = $connect->prepare($query);
-                    $statement->execute();
-                    $result = $statement->fetchAll();
-                    foreach($result as $row)
-                    {
-                    ?>
-                    <li>
-                        <div class="sidebar-widget-list-left">
-                            <input type="checkbox"class="common_selector storage" value="<?php echo $row['product_storage']; ?>"> <a href="#"><?php echo $row['product_storage']; ?> GB <span>7</span> </a>
-                            <span class="checkmark"></span> 
-                        </div>
-                    </li>
-                    <?php } ?>
-                    
-                </ul>
-            </div>
-        </div>
-        <div class="sidebar-widget mt-40">
-            <h4 class="pro-sidebar-title">Size </h4>
-            <div class="sidebar-widget-list mt-20">
-                <ul>
-                    <?php
-
-                    $query = "SELECT DISTINCT(product_brand) FROM product WHERE product_status = '1' ORDER BY product_id DESC";
-                    $statement = $connect->prepare($query);
-                    $statement->execute();
-                    $result = $statement->fetchAll();
-                    foreach($result as $row)
-                    {
-                    ?>
-                    <li>
-                        <div class="sidebar-widget-list-left">
-                            <input type="checkbox" class="common_selector brand" value="<?php echo $row['product_brand']; ?>"> <a href="#"><?php echo $row['product_brand']; ?> <span>4</span> </a>
-                            <span class="checkmark"></span> 
-                        </div>
-                    </li>
-                    <?php } ?>
-                </ul>
-            </div>
-        </div> -->
         <div class="sidebar-widget mt-50">
             <h4 class="pro-sidebar-title">Tag </h4>
             <div class="sidebar-widget-tag mt-25">

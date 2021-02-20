@@ -19,23 +19,23 @@
                     <div class="story-img">
                         <a href="#"><img src="assets/img/product/sales3.png" alt=""></a>
                         <div class="about-logo">
-                            <h3 style="font-size: 20px;">SHAMEEPHER</h3>
+                            <h3>TSC</h3>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-6">
                     <div class="story-details pl-50">
                         <div class="story-details-top">
-                            <h2>WELCOME TO <span>SHAMEEPHER</span></h2>
-                            <p>Your Company provide how all this mistaken idea of denouncing pleasure and sing pain was born an will give you a complete account of the system, and expound the actual teachings of the eat explorer. </p>
+                            <h2>WELCOME TO <span><br>The Sleeper's Choice</span></h2>
+                            <p>The Sleeper's Choice provide how all this mistaken idea of denouncing pleasure and sing pain was born an will give you a complete account of the system, and expound the actual teachings of the eat explorer. </p>
                         </div>
                         <div class="story-details-bottom">
                             <h4>WE START AT 2015</h4>
-                            <p>Your Company provide how all this mistaken idea of denouncing pleasure and sing pain was born an will give you a complete account of the system, and expound the actual teachings of the eat explorer.</p>
+                            <p>The Sleeper's Choice provide how all this mistaken idea of denouncing pleasure and sing pain was born an will give you a complete account of the system, and expound the actual teachings of the eat explorer.</p>
                         </div>
                         <div class="story-details-bottom">
                             <h4>WIN BEST ONLINE SHOP AT 2017</h4>
-                            <p>Your Company provide how all this mistaken idea of denouncing pleasure and sing pain was born an will give you a complete account of the system, and expound the actual teachings of the eat explorer. </p>
+                            <p>The Sleeper's Choice provide how all this mistaken idea of denouncing pleasure and sing pain was born an will give you a complete account of the system, and expound the actual teachings of the eat explorer. </p>
                         </div>
                     </div>
                     
@@ -48,20 +48,20 @@
             <div class="row">
                 <div class="col-lg-6 col-md-6">
                     <div class="single-banner mb-30 scroll-zoom">
-                        <a href="#"><img class="animated" src="assets/img/product/sales1.png" alt=""></a>
+                        <a href="shop.php"><img class="animated" src="assets/img/product/sales1.png" alt=""></a>
                         <div class="banner-content banner-position-6">
                             <h3>Black Friday</h3>
                             <h2>Wall Lighting <br>Black.</h2>
-                            <a href="#">Shop Now</a>
+                            <a href="shop.php">Shop Now</a>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6">
                     <div class="single-banner mb-30 text-center scroll-zoom">
-                        <a href="#"><img class="animated" src="assets/img/product/sales2.png" alt=""></a>
+                        <a href="shop.php"><img class="animated" src="assets/img/product/sales2.png" alt=""></a>
                         <div class="banner-content-3 banner-position-7">
                             <h2>Wall Lighting Black.</h2>
-                            <a href="#">Shop Now</a>
+                            <a href="shop.php">Shop Now</a>
                         </div>
                     </div>
                 </div>
@@ -78,7 +78,7 @@
                         </div>
                         <div class="feature-content">
                             <h4>Free Shipping</h4>
-                            <p>Most product are free <br>shipping.</p>
+                            <p>Free Shipping for orders <br> ₱5,000 above</p>
                         </div>
                     </div>
                 </div>
@@ -109,6 +109,9 @@
     </div>
     <div class="testimonial-area pt-80 pb-95 section-margin-1">
         <div class="container">
+          <div class="section-title text-center pb-60">
+                <h2>What Our Beloved Customers Say</h2>
+            </div>
             <div class="row">
                 <div class="col-lg-10 ml-auto mr-auto">
                     <div class="testimonial-active owl-carousel nav-style-1">
@@ -141,7 +144,7 @@
             </div>
         </div>
     </div>
-    <div class="team-area pt-95 pb-70" style="text-align: center;">
+    <!--<div class="team-area pt-95 pb-70" style="text-align: center;">
         <div class="container">
             <div class="section-title text-center pb-60">
                 <h2>Team Members</h2>
@@ -198,6 +201,6 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>-->
 
 <?php include_once("includes/footer.php"); ?>

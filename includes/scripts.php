@@ -10,7 +10,7 @@
 <!-- Plugins JS -->
 <script src="assets/js/plugins.js"></script>
 <!-- Ajax Mail -->
-<script src="assets/js/ajax-mail.js"></script>
+<script src="assets/js/ajax-mail.js"></script> 
 <!-- Main JS -->
 <script src="assets/js/main.js"></script>
 <!-- Sweet Alert JS -->
@@ -19,8 +19,8 @@
 <script src="https://www.paypal.com/sdk/js?client-id=ASa8wQRrQd_bJea14dVzf7xKE0Hv68N7uW9fzjKVaNU_ZGRz4nG3kUjaT2AyI_1RHlCm8-RhnMAJiMiH&currency=PHP&disable-funding=credit,card" data-sdk-integration-source="button-factory"></script>
 <script>
     $(document).ready(function(){
-
-        filter_data(); 
+        
+        filter_data();
         load_cart_data();
         load_viewcart_data();
         load_checkout_data();
@@ -141,7 +141,24 @@
                 return false;
               }
             });
-        }   
+        }  
+
+        function alertNotLogin(){
+            swal({
+              title: "Looks like you are not login.",
+              text: "Login Now!",
+              icon: "info",
+              buttons: true,
+              dangerMode: false,
+            })
+            .then((willDelete) => {
+              if (willDelete) {
+                window.location = "login-register.php";
+              } else {
+                return false;
+              }
+            });
+        } 
 
         /*-----------------------
             Load Data
@@ -210,6 +227,7 @@
                 success:function(data)
                 {
                     $('.wishlist_details').html(data.wishlist_details);
+                    $('.wishlist-count-style').text(data.total_item);
                 }
             });
         }
@@ -251,8 +269,9 @@
             var product_img = $('#img'+product_id+'').val();
             var product_name = $('#name'+product_id+'').val();
             var product_price = $('#price'+product_id+'').val();
-            var product_quantity = $('#quantity'+product_id).val();
+            var product_quantity = $('input[name="qtybutton"]').val();
             var action = "add";
+            
             if(product_quantity > 0)
             {
                 $.ajax({
@@ -345,46 +364,6 @@
                 alertEmptycart();
             }
         });
-        // this is the id of the form
-        $("#form-billing-info #place-orders").click(function(e) {
-
-            e.preventDefault(); // avoid to execute the actual submit of the form.
-
-            var form = $(this);
-            var mode_of_payment = $('input[name="payment_method"]:checked').val();
-            var hasValue = $('#hasValue').val();
-            var hasAccount = $('#customerID').val();
-            //var url = form.attr('action');
-            var action = "checkout";
-            //mali 'yung validation'
-            if(hasAccount > 0)
-            {
-                if(hasValue > 0)
-                {
-                     $.ajax({
-                       type: "POST",
-                       url: "assets/php/cart_process.php",
-                       data: {action:action, mode_of_payment:mode_of_payment},//form.serialize(), // serializes the form's elements.
-                       success: function(data)
-                       {
-                            load_cart_data();
-                            load_viewcart_data();
-                            load_checkout_data();
-                            window.location = "thank-you.php";
-                       }
-                     });
-                }
-                else
-                {
-                    alertEmptycart();
-                }
-            }
-            else
-            {
-                window.location = "login-register.php";
-            }
-            
-        }); 
 
         /*-----------------------
             Core functions - Wishlist
@@ -502,7 +481,6 @@
                }
             });
         }); 
-
         /*--
         Display Modal of Product Overview
         -----------------------------------*/
@@ -576,6 +554,104 @@
                 }
             });
         }
+
+         /*-----------------------
+            Place Order - Cash on Delivery
+        --------------------------- */
+        $(document).on('click', '.place-order-COD', function(){
+            var mode_of_payment = $('input[name="payment_method"]:checked').val();
+            var action = "checkout";
+            var hasCustomer = $('#hasCustomer').val();
+
+            if(hasCustomer != 0){
+                    $.ajax({
+                    type: "POST",
+                    url: "assets/php/cart_process.php",
+                    data: {action:action, mode_of_payment:mode_of_payment},
+                    success: function(data)
+                    {
+                            load_cart_data();
+                            load_viewcart_data();
+                            load_checkout_data();
+                            window.location = "thank-you.php";
+                    },error:function(data){console.log(data);}
+                    });
+                }else{
+                    alertNotLogin();
+                }
+        });
+
+         /*--
+        Paypal Integration
+        -----------------------------------*/
+       function initPayPalButton() {
+            var total_amount = $('#total-amount').val();
+          paypal.Buttons({
+            style: {
+              shape: 'rect',
+              color: 'gold',
+              layout: 'vertical',
+              label: 'checkout',
+              
+            },
+
+            createOrder: function(data, actions) {
+              return actions.order.create({
+                purchase_units: [{"amount":{"currency_code":"PHP","value":total_amount}}]
+              });
+            },
+
+            onApprove: function(data, actions) {
+              return actions.order.capture().then(function(details) {
+                var mode_of_payment = $('input[name="payment_method"]:checked').val();
+                var action = "checkout";
+                
+                var hasCustomer = $('#hasCustomer').val();
+                
+                if(hasCustomer != 0){
+                    $.ajax({
+                       type: "POST",
+                       url: "assets/php/cart_process.php",
+                       data: {action:action, mode_of_payment:mode_of_payment},
+                       success: function(data)
+                       {
+                            load_cart_data();
+                            load_viewcart_data();
+                            load_checkout_data();
+                            window.location = "thank-you.php";
+                       },error:function(data){console.log(data);}
+                     });
+                }else{
+                    alertNotLogin();
+                }
+                
+              });
+
+            },
+
+            onError: function(err) {
+              console.log(err);
+            }
+          }).render('#place-order');
+        }
+        initPayPalButton();
+
+         function alertNotLogin(){
+            swal({
+              title: "Looks like you are not login.",
+              text: "Login Now!",
+              icon: "info",
+              buttons: true,
+              dangerMode: false,
+            })
+            .then((willDelete) => {
+              if (willDelete) {
+                window.location = "login-register.php";
+              } else {
+                return false;
+              }
+            });
+        } 
         
         /*--
         Setting active
@@ -621,52 +697,120 @@
             }
            });
         });
-       
-       /*--
-        Paypal Integration
-        -----------------------------------*/
-       function initPayPalButton() {
-            var total_amount = $('#total-amount').val();
-          paypal.Buttons({
-            style: {
-              shape: 'rect',
-              color: 'gold',
-              layout: 'vertical',
-              label: 'checkout',
-              
-            },
-
-            createOrder: function(data, actions) {
-              return actions.order.create({
-                purchase_units: [{"amount":{"currency_code":"PHP","value":total_amount}}]
-              });
-            },
-
-            onApprove: function(data, actions) {
-              return actions.order.capture().then(function(details) {
-                var mode_of_payment = $('input[name="payment_method"]:checked').val();
-                var action = "checkout";
-                $.ajax({
-                       type: "POST",
-                       url: "assets/php/cart_process.php",
-                       data: {action:action, mode_of_payment:mode_of_payment},
-                       success: function(data)
-                       {
-                            load_cart_data();
-                            load_viewcart_data();
-                            load_checkout_data();
-                            window.location = "thank-you.php";
-                       }
-                     });
-              });
-            },
-
-            onError: function(err) {
-              console.log(err);
-            }
-          }).render('#place-order');
-        }
-        initPayPalButton();
     });
    
+</script>
+<script>
+    /*--
+        PHPMailer
+        -----------------------------------*/
+        function sendEmail() {   
+        var name = $("#cf_name").val();
+        var email = $("#cf_email").val();
+        var subject = $("#cf_subject").val();
+        var message = $("#cf_message").val();
+        
+            if(name != '' && email != '' && subject != '' && message != ''){
+                $.ajax({
+              url: '../mail.php',
+              method: 'POST',
+              dataType: 'json',
+              data: {
+                  name: name,
+                  email: email,
+                  subject: subject,
+                  message: message
+              }, success: function (response) {
+                    $('#contact-form')[0].reset();
+                    swal({
+                      title: "Thank you!",
+                      text: "Your Response has been sent.",
+                      icon: "success",
+                      button: "No Prob!",
+                    });
+              },error:function(response){
+                  $('#contact-form')[0].reset();
+                    swal({
+                      title: "Thank you!",
+                      text: "Your Response has been sent.",
+                      icon: "success",
+                      button: "No Prob!",
+                    });
+                   
+              }
+                    
+            });
+            }else
+            {
+                swal({
+                  title: "Missing Fields!",
+                  text: "Looks like you have missed some fields.",
+                  icon: "warning",
+                  button: "Okay",
+                });
+            }
+        }
+            var validateEmail = function(elementValue) {
+            var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+            return emailPattern.test(elementValue);
+        }
+        $('#email').keyup(function() {
+        
+            var value = $(this).val();
+            var valid = validateEmail(value);
+        
+            if (!valid) {
+                $(this).css('color', 'red');
+                $('.addbut1').prop('disabled', true);
+            } else {
+                $(this).css('color', '#2bb673');
+                $('.addbut1').prop('disabled', false);
+            }
+        });
+        
+        const newsletter = {};
+        
+        newsletter.main = document.querySelector('.main');
+        newsletter.form = document.querySelector('.main > #singular-form');
+        newsletter.subs = document.querySelector('.main > #singular-form > button#subs');
+        newsletter.input = document.querySelector('.main>#singular-form>#email-input>input');
+        newsletter.submitButton = document.querySelector('.main > #singular-form > #email-input > button');
+        newsletter.successMessage = document.querySelector('.main > #singular-form > #success');
+        
+        newsletter.submitDelay = 1000;
+        
+        newsletter.clickHandler = (e) => {
+            switch (e.target) {
+                case newsletter.subs:
+                    console.log('case subs');
+                    newsletter.main.style.width = '30rem'
+                    e.target.classList.remove('shown');
+                    newsletter.input.classList.add('shown');
+                    newsletter.submitButton.classList.add('shown');
+                    newsletter.input.focus();
+                    break;
+                case newsletter.submitButton:
+                    newsletter.submitForm();
+                    break;
+            }
+        }
+        newsletter.handleInputKeypress = (e) => {
+            if (e.keyCode === 13) {
+                e.preventDefault();
+                newsletter.submitForm();
+            }
+        }
+        newsletter.submitForm = () => {
+            newsletter.input.style.transition = 'all .6s ease';
+            newsletter.submitButton.style.transition = 'all .6s ease';
+            newsletter.input.classList.remove('shown');
+            newsletter.submitButton.classList.remove('shown');
+            newsletter.main.style.transition = 'all .6s cubic-bezier(0.47, 0.47, 0.27, 1.20) .4s';
+            newsletter.main.style.width = '';
+            newsletter.successMessage.classList.add('shown');
+            let submission = setTimeout(() => newsletter.form.submit(), newsletter.submitDelay);
+        }
+        
+        newsletter.input.addEventListener('keypress', (e) => newsletter.handleInputKeypress(e));
+        document.addEventListener('click', (e) => newsletter.clickHandler(e));
 </script>

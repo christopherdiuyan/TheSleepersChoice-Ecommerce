@@ -97,32 +97,115 @@ else
                                 <div class="col-lg-12">
                                     <div class="billing-info mb-20">
                                         <label>Complete Name <abbr class="required" title="required">*</abbr></label>
-                                        <input type="text" placeholder="First Name Middle Initial Surname" value="<?php echo $customerName?>" readonly>
+                                        <input type="text" placeholder="First Name Middle Initial Surname" value="<?php echo $customerName?>">
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="billing-select mb-20">
                                         <label>Province <abbr class="required" title="required">*</abbr></label>
-                                        <input type="text" placeholder="Province" value="<?php echo $customerProvince?>" readonly>
+                                        <input type="text" placeholder="Province" list="provinces" id="provices" value="<?php echo $customerProvince?>">
+                                        <datalist id="provinces">
+                                            <option>Abra</option>
+                                            <option>Agusan del Norte</option>
+                                            <option>Agusan del Sur</option>
+                                            <option>Aklan</option>
+                                            <option>Albay</option>
+                                            <option>Antique</option>
+                                            <option>Apayao</option>
+                                            <option>Aurora</option>
+                                            <option>Basilan</option>
+                                            <option>Bataan</option>
+                                            <option>Batanes</option>
+                                            <option>Batangas</option>
+                                            <option>Benguet</option>
+                                            <option>Biliran</option>
+                                            <option>Bohol</option>
+                                            <option>Bukidnon</option>
+                                            <option>Bulacan</option>
+                                            <option>Cagayan</option>
+                                            <option>Camarines Norte</option>
+                                            <option>Camarines Sur</option>
+                                            <option>Camiguin</option>
+                                            <option>Capiz</option>
+                                            <option>Catanduanes</option>
+                                            <option>Cavite</option>
+                                            <option>Cebu</option>
+                                            <option>Cotabato</option>
+                                            <option>Davao de Oro</option>
+                                            <option>Davao del Norte</option>
+                                            <option>Davao del Sur</option>
+                                            <option>Davao Occidental</option>
+                                            <option>Davao Oriental</option>
+                                            <option>Dinagat Islands</option>
+                                            <option>Eastern Samar</option>
+                                            <option>Guimaras</option>
+                                            <option>Ifugao</option>
+                                            <option>Ilocos Norte</option>
+                                            <option>Ilocos Sur</option>
+                                            <option>Iloilo</option>
+                                            <option>Isabela</option>
+                                            <option>Kalinga</option>
+                                            <option>La Union</option>
+                                            <option>Laguna</option>
+                                            <option>Lanao del Norte</option>
+                                            <option>Lanao del Sur</option>
+                                            <option>Leyte</option>
+                                            <option>Maguindanao</option>
+                                            <option>Marinduque</option>
+                                            <option>Masbate</option>
+                                            <option>Metro Manila</option>
+                                            <option>Misamis Occidental</option>
+                                            <option>Misamis Oriental</option>
+                                            <option>Mountain Province</option>
+                                            <option>Negros Occidental</option>
+                                            <option>Negros Oriental</option>
+                                            <option>Northern Samar</option>
+                                            <option>Nueva Ecija</option>
+                                            <option>Nueva Vizcaya</option>
+                                            <option>Occidental Mindoro</option>
+                                            <option>Oriental Mindoro</option>
+                                            <option>Palawan</option>
+                                            <option>Pampanga</option>
+                                            <option>Pangasinan</option>
+                                            <option>Quezon</option>
+                                            <option>Quirino</option>
+                                            <option>Rizal</option>
+                                            <option>Romblon</option>
+                                            <option>Samar</option>
+                                            <option>Sarangani</option>
+                                            <option>Siquijor</option>
+                                            <option>Sorsogon</option>
+                                            <option>South Cotabato</option>
+                                            <option>Southern Leyte</option>
+                                            <option>Sultan Kudarat</option>
+                                            <option>Sulu</option>
+                                            <option>Surigao del Norte</option>
+                                            <option>Surigao del Sur</option>
+                                            <option>Tarlac</option>
+                                            <option>Tawi-Tawi</option>
+                                            <option>Zambales</option>
+                                            <option>Zamboanga del Norte</option>
+                                            <option>Zamboanga del Sur</option>
+                                            <option>Zamboanga Sibugay</option>
                                         </datalist>
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="billing-info mb-20">
                                         <label>City/Municipality, House Number, Building and Street Name <abbr class="required" title="required">*</abbr></label>
-                                        <input class="billing-address" placeholder="City/Municipality, House number and street name" type="text" value="<?php echo $customerAddress ?>" readonly>
+                                        <input class="billing-address" placeholder="City/Municipality, House number and street name" type="text" value="<?php echo $customerAddress ?>">
                                     </div>
                                 </div>
                                 <div class="col-lg-12 col-md-12">
                                     <div class="billing-info mb-20">
                                         <label>Phone <abbr class="required" title="required">*</abbr></label>
-                                        <input type="text" value="<?php echo $customerContact?>" readonly>
+                                        <input type="text" value="<?php echo $customerContact?>" >
                                     </div>
                                 </div>
                                 <div class="col-lg-12 col-md-12">
                                     <div class="billing-info mb-20">
                                         <label>Email Address <abbr class="required" title="required">*</abbr></label>
-                                        <input type="text" value="<?php echo $customerEmail?>" readonly>
+                                        <input type="text" value="<?php echo $customerEmail?>">
                                     </div>
                                 </div>
                             </div>
@@ -165,36 +248,30 @@ else
                                         <input type="hidden" name="customerID" id="customerID" value="<?php echo $customerID ?>">
                                         <input type="hidden" id="total-amount" value="<?php echo $_SESSION['total_amount']?>">
                                         <div class="pay-top sin-payment">
-                                            <input id="payment_method_1" class="input-radio" type="radio" value="Direct Bank Transfer" checked="checked" name="payment_method">
-                                            <label for="payment_method_1"> Direct Bank Transfer </label>
-                                            <div class="payment-box payment_method_bacs">
-                                            <p>Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order will not be shipped until the funds have cleared in our account.</p>
-                                        </div>
-                                        <div class="pay-top sin-payment">
-                                            <input id="payment-method-2" class="input-radio" type="radio" value="Check payments" name="payment_method">
-                                            <label for="payment-method-2">Check payments</label>
-                                            <div class="payment-box payment_method_bacs">
-                                            <p>Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order will not be shipped until the funds have cleared in our account.</p>
-                                        </div>
-                                        <div class="pay-top sin-payment">
-                                            <input id="payment-method-3" class="input-radio" type="radio" value="Cash on delivery" name="payment_method">
+                                            <input id="payment-method-3" class="input-radio" type="radio" checked value="Cash on delivery" name="payment_method">
                                             <label for="payment-method-3">Cash on delivery </label>
                                             <div class="payment-box payment_method_bacs">
-                                            <p>Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order will not be shipped until the funds have cleared in our account.</p>
+                                                <p>Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order will not be shipped until the funds have cleared in our account.</p>
+                                                <div class="Place-order mt-40">
+                                                    <a href="javascript:void(0)" class="place-order-COD">Place Order</a>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="pay-top sin-payment sin-payment-3">
+                                        <div class="pay-top sin-payment">
                                             <input id="payment-method-4" class="input-radio" type="radio" value="PayPal" name="payment_method">
                                             <label for="payment-method-4">PayPal <img alt="" src="assets/img/icon-img/payment.png"></label>
                                             <div class="payment-box payment_method_bacs">
-                                            <p>Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order will not be shipped until the funds have cleared in our account.</p>
+                                                <p>Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order will not be shipped until the funds have cleared in our account.</p>
+                                                <div id="smart-button-container">
+                                                    <input type="hidden" id="hasCustomer" value="<?php echo $customerID?>">
+                                                    <div style="text-align: center;">
+                                                        <div id="place-order"></div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div id="smart-button-container">
-                                      <div style="text-align: center;">
-                                        <div id="place-order"></div>
-                                      </div>
-                                    </div>
+                                </div>
                                 </div>
                             </form>
                         </div>

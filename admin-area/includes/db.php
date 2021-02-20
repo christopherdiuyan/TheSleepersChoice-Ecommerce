@@ -1,9 +1,9 @@
 <?php 
 
-define('DB_HOST','localhost');
-define('DB_USER','root');
-define('DB_PASS','');
-define('DB_NAME','ecomm_db');
+define('DB_HOST','sql312.epizy.com');
+define('DB_USER','epiz_27931618');
+define('DB_PASS','H82w9ix0F3f60e');
+define('DB_NAME','epiz_27931618_thesleeperschoice');
 
 // Establish database connection using PDO.
 try

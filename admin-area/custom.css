@@ -242,6 +242,17 @@
             visibility: visible !important;
             overflow: visible !important; /* Remove scrollbar for printing. */
         }
+        #stocks-report, #stocks-report * {
+            visibility: visible;
+        }
+        #stocks-report {
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+        #stocks-report .topbar, #stocks-report .btn-list, #recordsListView_paginate *{
+           display: none;
+        }
         @page {
             size: auto;   /* auto is the initial value */
             size: A4 portrait;

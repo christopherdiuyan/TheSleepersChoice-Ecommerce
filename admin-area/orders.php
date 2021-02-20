@@ -10,6 +10,10 @@
     }else
     {
         include_once("includes/header.php");
+        $query = "SELECT order_id FROM customer_orders GROUP BY order_id";
+        $statement = $connect->prepare($query);
+        $statement->execute();
+        $total_row = $statement->rowCount();
 ?>
         <!-- Sidebar Start -->
         <aside class="sidebar" data-trigger="scrollbar">
@@ -19,17 +23,7 @@
                     <li>
                         <a href="#">Your Store</a>
                         <ul>
-                            <li class="">
-                                <a href="#">
-                                    <i class="fa fa-home"></i>
-                                    <span>Dashboard</span>
-                                </a>
-
-                                <ul>
-                                    <li class=""><a href="index.php">Dashboard</a></li>
-                                    
-                                </ul>
-                            </li>
+                            <li class=""><a href="index.php"><i class="fa fa-home"></i><span>Dashboard</span></a></li>
                             <li class="">
                                 <a href="#">
                                     <i class="fa fa-shopping-bag"></i>
@@ -38,103 +32,83 @@
                                 <ul>
                                     <li class=""><a href="products.php">Products</a></li>
                                 </ul>
-                            </li>
-                            <li class="">
-                                <a href="#">
-                                    <i class="fa fa-list"></i>
-                                    <span>Categories</span>
-                                </a>
-
                                 <ul>
-                                    <li class=""><a href="ecommerce.php">Add Category</a></li>
-                                    
+                                    <li class=""><a href="categories.php">Product Categories</a></li>
                                 </ul>
                             </li>
                             <li class="">
-                                <a href="#">
+                                <a href="customers.php">
                                     <i class="fa fa-fw fa-users"></i>
                                     <span>Customers</span>
                                 </a>
-
-                                <ul>
-                                    <li class=""><a href="ecommerce.php">Customer</a></li>
-                                    
-                                </ul>
                             </li>
-                            <li class="active open">
-                                <a href="#">
+                            <li class="active">
+                                <a href="orders.php">
                                     <i class="fa fa-shopping-cart"></i>
                                     <span>Orders</span>
                                 </a>
-                                <ul>
-                                    <li class="active"><a href="orders.php">Orders</a></li>
-                                    <li><a href="order-view.php">Order View</a></li>
-                                </ul>
                             </li>
                             <li class="">
-                                <a href="#">
+                                <a href="inquiries.php">
                                     <i class="fa fa-comments"></i>
                                     <span>Inquiries</span>
                                 </a>
-
-                                <ul>
-                                    <li class="active"><a href="ecommerce.php">Inquiries</a></li>
-                                    
-                                </ul>
                             </li>
                         </ul>
                     </li>
-                    <li>
+                    <!-- <li>
                         <a href="#">Your Website</a>
 
                         <ul>
                             <li>
                                 <a href="#">
                                     <i class="fa fa-file"></i>
-                                    <span>Extra Pages</span>
+                                    <span>Pages</span>
                                 </a>
 
                                 <ul>
-                                    <li><a href="pricing-tables.php">Pricing Tables</a></li>
-                                    <li><a href="profile.php">Profile</a></li>
-                                    <li><a href="invoice.php">Invoice</a></li>
-                                    <li><a href="login.php">Login</a></li>
-                                    <li><a href="register.php">Register</a></li>
-                                    <li><a href="forgot-password.php">Forgot Password</a></li>
-                                    <li><a href="lock-screen.php">Lock Screen</a></li>
-                                    <li><a href="404.php">404 Error</a></li>
-                                    <li><a href="500.php">500 Error</a></li>
-                                    <li><a href="maintenance.php">Maintenance</a></li>
-                                    <li><a href="coming-soon.php">Coming Soon</a></li>
+                                    <li><a href="page-home.php">Home</a></li>
+                                    <li><a href="profile.php">Shop</a></li>
+                                    <li><a href="invoice.php">About</a></li>
+                                    <li><a href="login.php">Contact Us</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>-->
+                     <li>
+                        <a href="javascript:void(0)">Reports</a>
+                        <ul>
+                            <li>
+                                <a href="javascript:void(0)">
+                                    <i class="fa fa-file"></i>
+                                    <span>Reports</span>
+                                </a>
+
+                                <ul>
+                                    <li ><a href="report_stocks.php">Stocks Report</a></li>
+                                    <li ><a href="report_customers.php">Customers</a></li>
+                                    <li ><a href="report_orders.php">Customer Orders</a></li>
                                 </ul>
                             </li>
                         </ul>
                     </li>
                     <li>
-                        <a href="#">Configuration</a>
+                        <a href="javascript:void(0)">Configuration</a>
 
                         <ul>
-                            <li>
-                                <a href="#">
-                                    <i class="fa fa-file"></i>
-                                    <span>Extra Pages</span>
+                            <li class="">
+                                <a href="users.php">
+                                    <i class="fa fa-fw fa-users"></i>
+                                    <span>Users</span>
                                 </a>
-
-                                <ul>
-                                    <li><a href="pricing-tables.php">Pricing Tables</a></li>
-                                    <li><a href="profile.php">Profile</a></li>
-                                    <li><a href="invoice.php">Invoice</a></li>
-                                    <li><a href="login.php">Login</a></li>
-                                    <li><a href="register.php">Register</a></li>
-                                    <li><a href="forgot-password.php">Forgot Password</a></li>
-                                    <li><a href="lock-screen.php">Lock Screen</a></li>
-                                    <li><a href="404.php">404 Error</a></li>
-                                    <li><a href="500.php">500 Error</a></li>
-                                    <li><a href="maintenance.php">Maintenance</a></li>
-                                    <li><a href="coming-soon.php">Coming Soon</a></li>
-                                </ul>
                             </li>
-                        </ul>
+                            <li class="">
+                                <a href="settings.php">
+                                    <i class="fa fa-cogs"></i>
+                                    <span>General Settings</span>
+                                </a>
+                            </li>
+                        </ul>   
                     </li>
                 </ul>
             </div>
@@ -170,7 +144,7 @@
                     <div class="records--header">
                         <div class="title fa-shopping-bag">
                             <h3 class="h3">Customer Orders <a href="#" class="btn btn-sm btn-outline-info">Manage Orders</a></h3>
-                            <p>Found Total 0 Orders</p>
+                            <p>Found Total <?php echo $total_row?> Orders</p>
                         </div>
 
                         <div class="actions">
@@ -191,7 +165,7 @@
                                 <tr>
                                     <th>Order No</th>
                                     <th>Invoice No</th>
-                                    <th>Purchesed On</th>
+                                    <th>Purchased On</th>
                                     <th>Customer Name</th>
                                     <th>Customer Address</th>
                                     <th>Total Price</th>
@@ -236,11 +210,11 @@
                                 <tr>
                                     <td><?php echo $x++ ?></td>
                                     <td>
-                                        <a href="javascript:void(0)" class="dropdown-item editOrder" data-toggle="modal" id="<?php echo $row['order_id'] ?>" class="btn-link">#<?php echo $row['order_id'] ?></a>
+                                        <a href="javascript:void(0)"  data-toggle="modal" id="<?php echo $row['order_id'] ?>" class="btn-link editOrder">#<?php echo $row['order_id'] ?></a>
                                     </td>
                                     <td><?php echo $order_date ?></td>
                                     <td>
-                                        <a href="#" class="btn-link"><?php echo $c_row['customer_name'] ?></a>
+                                        <a href="javascript:void(0)" class="btn-link viewCustomer" data-toggle="modal" id="<?php echo $c_row['customer_u_id'] ?>"><?php echo $c_row['customer_name'] ?></a>
                                     </td>
                                     <td><?php echo $c_row['customer_province'] ." ".$c_row['customer_address'] ?></td>
                                     <td>₱<?php echo $total_amount ?></td>
@@ -249,13 +223,7 @@
                                         <span class="label label-<?php echo $color ?>"><?php echo $row["order_status"] ?></span>
                                     </td>
                                     <td>
-                                        <div class="dropleft">
-                                            <a href="#" class="btn-link" data-toggle="dropdown"><i class="fa fa-ellipsis-v"></i></a>
-
-                                            <div class="dropdown-menu">
-                                                <a href="javascript:void(0)" class="dropdown-item editOrder" data-toggle="modal" id="<?php echo $row['order_id'] ?>">Edit</a>
-                                            </div>
-                                        </div>
+                                        <a href="javascript:void(0)" class="btn btn-info btn-sm editOrder" data-toggle="modal" id="<?php echo $row['order_id'] ?>">Update</a>
                                     </td>
                                 </tr>
                                 <?php } ?>
@@ -269,26 +237,11 @@
 
             <!-- Main Footer Start -->
             <footer class="main--footer main--footer-light">
-                <p>Copyright &copy; <a href="#">DAdmin</a>. All Rights Reserved.</p>
+                <p>Copyright &copy; <?php echo date('Y') ?> <a href="index.php">SHAPHER</a>. All Rights Reserved.</p>
             </footer>
             <!-- Main Footer End -->
         </main>
         <!-- Main Container End -->
 
-           <!-- Vertically Centered Modal Start -->
-    <div id="editOrder" class="modal fade">
-        <div class="modal-dialog modal-dialog-centered modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-
-                <div class="modal-body" id="modal-edit-order">
-                    
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Vertically Centered Modal End -->
 <?php } ?>
 <?php include_once("includes/footer.php"); ?>

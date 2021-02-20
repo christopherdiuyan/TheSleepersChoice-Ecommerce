@@ -6330,6 +6330,7 @@ li.list-group-item:first-child {
     font-size: 14px;
     line-height: 24px;
     font-weight: 600;
+    max-width: 20rem;
 }
 
 .navbar--nav .dropdown > .dropdown-menu > li > a {
@@ -6814,4 +6815,7 @@ body.page-light .main--footer-light {
     .main--footer {
         text-align: left;
     }
+}
+.note-title{
+    color:red;
 }

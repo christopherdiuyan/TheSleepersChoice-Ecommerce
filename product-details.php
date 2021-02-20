@@ -2,26 +2,36 @@
 include_once("includes/header.php"); 
 
 if(isset($_GET['prodID']))
-{
+{   
     $sku = $_GET['prodID'];
-    $stmt = $connect->query("SELECT * FROM products WHERE product_status = '1' AND sku = '". $sku ."'");
-    $row = $stmt->fetch();
-    $prod_name = $row['product_title'];
-    $prod_desc = $row['product_desc'];
-    $prod_cat = $row['product_category'];
-    $selling_price = $row['product_price'] - ($row['product_price'] * ($row['product_discount'] / 100));
-    $prod_color = $row['product_color'];
-    $prod_size = $row['product_size'];
+    $query = "SELECT * FROM products WHERE product_status = '1' AND sku = '". $sku ."'";
+    $statement = $connect->prepare($query);
+    $statement->execute();
+    $total_row = $statement->rowCount();
+    if($total_row == 0){    //if query has no result, return 404 page
+        echo "<script>window.open('404.php','_self')</script>";
+    }
+    else
+    {
+        $stmt = $connect->query("SELECT * FROM products WHERE product_status = '1' AND sku = '". $sku ."'");
+        $row = $stmt->fetch();
+        $prod_name = $row['product_title'];
+        $prod_desc = $row['product_desc'];
+        $prod_cat = $row['product_category'];
+        $selling_price = $row['product_price'] - ($row['product_price'] * ($row['product_discount'] / 100));
+        $prod_color = $row['product_color'];
+        $prod_size = $row['product_size'];
 
-    $prodImg1 =  file_exists(Config::$productFilepath . $row['product_img1']) ? Config::$productFilepath . $row['product_img1'] : Config::$productFilepath . Config::$defaultProdImg ;
-    $prodImg2 =  file_exists(Config::$productFilepath . $row['product_img2']) ? Config::$productFilepath . $row['product_img2'] : Config::$productFilepath . Config::$defaultProdImg ;
-    $prodImg3 =  file_exists(Config::$productFilepath . $row['product_img3']) ? Config::$productFilepath . $row['product_img3'] : Config::$productFilepath . Config::$defaultProdImg ;
+        $prodImg1 =  file_exists(Config::$productFilepath . $row['product_img1']) ? Config::$productFilepath . $row['product_img1'] : Config::$productFilepath . Config::$defaultProdImg ;
+        $prodImg2 =  file_exists(Config::$productFilepath . $row['product_img2']) ? Config::$productFilepath . $row['product_img2'] : Config::$productFilepath . Config::$defaultProdImg ;
+        $prodImg3 =  file_exists(Config::$productFilepath . $row['product_img3']) ? Config::$productFilepath . $row['product_img3'] : Config::$productFilepath . Config::$defaultProdImg ;
 
-    $priceOld = $row['product_discount'] > 0 ? "₱ ". number_format($row['product_price'], 2, '.', ',') : "";
-    $discount = $row['product_discount'] > 0 ? "<span>-".$row['product_discount'] ."%</span>" : "";
-    $stmt = $connect->query("SELECT * FROM product_categories WHERE p_cat_title = '". $prod_cat ."'");
-    $row = $stmt->fetch();
-    $category_img =  file_exists(Config::$categoryFilepath . $row['p_cat_img']) ? Config::$categoryFilepath . $row['p_cat_img'] : Config::$categoryFilepath . Config::$defaultCategoryImg ;
+        $priceOld = $row['product_discount'] > 0 ? "₱ ". number_format($row['product_price'], 2, '.', ',') : "";
+        $discount = $row['product_discount'] > 0 ? "<span>-".$row['product_discount'] ."%</span>" : "";
+        $stmt = $connect->query("SELECT * FROM product_categories WHERE p_cat_title = '". $prod_cat ."'");
+        $row = $stmt->fetch();
+        $category_img =  file_exists(Config::$categoryFilepath . $row['p_cat_img']) ? Config::$categoryFilepath . $row['p_cat_img'] : Config::$categoryFilepath . Config::$defaultCategoryImg ;
+    }
 
 }
 else
@@ -38,7 +48,7 @@ else
             <div class="breadcrumb-content text-center">
                 <ul>
                     <li>
-                        <a href="index.html">Home</a>
+                        <a href="index.php">Home</a>
                     </li>
                     <li class="active">Product Details </li>
                 </ul>
@@ -119,7 +129,7 @@ else
                         </div>
                         <div class="pro-details-quality">
                             <div class="cart-plus-minus">
-                                <input class="cart-plus-minus-box" type="text" name="qtybutton" id="quantity<?php echo $sku ?>" value="1">
+                                <input class="cart-plus-minus-box" type="text" name="qtybutton" value="1">
                             </div>
                             <div class="pro-details-cart btn-hover">
                                  <input type="button" name="add_to_cart" id="<?php echo $sku ?>" class="add_to_cart" value="Add to Cart" />

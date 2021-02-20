@@ -1,5 +1,9 @@
-<?php include_once("includes/header.php"); ?>
-
+<?php 
+include_once("includes/header.php"); 
+$stmt = $connect->query("SELECT * FROM settings");
+$row = $stmt->fetch();
+?>
+   
     <div class="breadcrumb-area pt-35 pb-35 bg-gray">
         <div class="container">
             <div class="breadcrumb-content text-center">
@@ -25,7 +29,7 @@
                                     <i class="sli sli-location-pin"></i>
                                 </div>
                                 <div class="contact-info-content">
-                                    <p>Address goes here,  street, Crossroad 123.</p>
+                                    <p><?php echo $row['company_address'] ?></p>
                                 </div>
                             </div>
                             <div class="single-contact-info">
@@ -33,7 +37,7 @@
                                     <i class="sli sli-envelope"></i>
                                 </div>
                                 <div class="contact-info-content">
-                                    <p><a href="#">info@example.com</a> / <a href="#">info@example.com</a></p>
+                                    <p><a href="mailto:<?php echo $row['company_email'] ?>"><?php echo $row['company_email'] ?></a></p>
                                 </div>
                             </div>
                             <div class="single-contact-info">
@@ -41,7 +45,7 @@
                                     <i class="sli sli-screen-smartphone"></i>
                                 </div>
                                 <div class="contact-info-content">
-                                    <p>+1 35 776 859 000  /  +1 35 776 859 011</p>
+                                    <p><a href="tel:<?php echo $row['company_contact'] ?>"><?php echo $row['company_contact'] ?></a></p>
                                 </div>
                             </div>
                         </div>
@@ -49,14 +53,13 @@
                 </div>
                 <div class="col-lg-7 col-md-6">
                     <div class="contact-from contact-shadow">
-                        <form id="contact-form" action="assets/mail.php" method="post">
-                            <input name="name" type="text" placeholder="Name">
-                            <input name="email" type="email" placeholder="Email">
-                            <input name="subject" type="text" placeholder="Subject">
-                            <textarea name="message" placeholder="Your Message"></textarea>
-                            <button class="submit" type="submit">Send Message</button>
+                        <form id="contact-form">
+                            <input name="name" id="cf_name" type="text" placeholder="Name" required>
+                            <input name="email" id="cf_email" type="email" placeholder="Email" required>
+                            <input name="subject" id="cf_subject" type="text" placeholder="Subject" required>
+                            <textarea name="message" id="cf_message" placeholder="Your Message" required></textarea>
+                            <button class="submit" type="button" onclick="sendEmail()" >Send Message</button>
                         </form>
-                        <p class="form-messege"></p>
                     </div>
                 </div>
             </div>

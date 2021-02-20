@@ -22,36 +22,19 @@ if(isset($_POST['login'])){
                     $sql = "select * from customers where customer_email='$customer_email'";
                     $query = $connect->prepare($sql);
                     $query->execute();
+                    $total_row = $query->rowCount();
                     $row_customer = $query->fetch(PDO::FETCH_ASSOC);
                     $c_id = $row_customer['customer_id'];
                     $c_name = $row_customer['customer_name'];
                     $c_u_id = $row_customer['customer_u_id'];
                     
-                    $get_ip = getRealIpUser();
-                    
-                    $sql = "select * from cart where ip_add='$get_ip'AND c_id='$c_id'";
-                    $query = $connect->prepare($sql);
-                    $check_cart = $query->rowCount();    //mysqli_num_rows 
-                    
-                    if($check_cart == 0 && $run_customer->rowCount()==1){
-                        //check if there is no item in cart
+                    if($total_row > 0){
                         $_SESSION['customer_email']=$customer_email;
                         $_SESSION['user_name'] = $c_name;
                         $_SESSION['user_uni_no'] = $c_u_id;
                         
-                       //echo "<script>alert('You are Logged in.')</script>"; 
                        echo "<script>window.open('../../my-account.php','_self')</script>";
-                       
 
-                    }else{
-                        //go to checkout if there is pending item in the cart
-                        $_SESSION['customer_email']=$customer_email;
-                        $_SESSION['user_name'] = $c_name;
-                        $_SESSION['user_uni_no'] = $c_u_id;
-                        
-                       //echo "<script>alert('You are Logged in')</script>"; 
-                       echo "<script>window.open('../../checkout.php','_self')</script>";
-                        
                     }
                 }  
                 else  
@@ -99,7 +82,7 @@ if(isset($_POST['register'])){
     if($lastInsertId)
     {
         echo "<script>alert('Registration successfull. Now you can login');</script>";
-        echo "<script>window.open('../login-register.php','_self')</script>";
+        echo "<script>window.open('../../login-register.php','_self')</script>";
     }
     else 
     {
@@ -109,9 +92,4 @@ if(isset($_POST['register'])){
     
 }
 
-?> 
-
-<!-- shipment of 
-pagnarelease ng 1 
-after ng 1 pm di na masship
-next day na ishship -->
+?>

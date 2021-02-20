@@ -1,8 +1,10 @@
-   <?php 
-   include_once("includes/header.php");
-   include_once("includes/db.php");
-   ?>
-   <!--  <div id="overlay"><div><img src="loading.gif" width="64px" height="64px"/></div></div> -->
+<?php
+include_once("includes/header.php");
+include_once("includes/db.php");
+
+$stmt = $connect->query("SELECT COUNT(sku) as total FROM products");
+$row = $stmt->fetch();
+?>
     <div class="breadcrumb-area pt-35 pb-35 bg-gray">
         <div class="container">
             <div class="breadcrumb-content text-center">
@@ -30,7 +32,7 @@
                                     <option value=""> Z to A</option>
                                 </select>
                             </div>
-                            <p>Showing 1–12 of 12 result</p>
+                            <p id="total-prod-items">Showing 1–6 of <?php echo $row['total']?> result</p>
                         </div>
                         <div class="shop-tab nav">
                             <a class="active" href="#shop-grid" data-toggle="tab">
@@ -41,7 +43,9 @@
                             </a>
                         </div>
                     </div>
-
+                    <link rel="stylesheet" href="custom.css"> 
+                    <div id="notification-area" style="z-index: 9999">
+                    </div>
                     <div class="shop-bottom-area mt-35">
                         <div class="tab-content jump">
 

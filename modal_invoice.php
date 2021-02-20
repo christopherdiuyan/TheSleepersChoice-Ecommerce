@@ -3,7 +3,11 @@ session_start();
 require_once('includes/db.php');
 require_once('assets/php/config.php');
 ?>
-
+<style type="text/css">
+    .sinvoice--order {
+        max-height: 340px;
+    }
+</style>
 <?php
 
 if(isset($_POST['orderID'])){
@@ -69,14 +73,14 @@ $result = $stmt->fetchAll();
         <div class="invoice--info">
             <h5 class="h5"><span>Invoice:</span> #<?php echo $invoiceNo?></h5>
             <p>Invoice Date: <strong><?php echo $order_date?></strong></p>
+            <p><strong>Payment Method:</strong> <?php echo $mode_of_payment?></p>
         </div>
     </div>
-
     <div class="invoice--order">
         <table class="table">
             <thead>
                 <tr>
-                    <th>Product ID</th>
+                    <th>SKU</th>
                     <th>Description</th>
                     <th>Quantity</th>
                     <th>Unit Price</th>
@@ -93,15 +97,15 @@ $result = $stmt->fetchAll();
                         $prodPrice = number_format($rowProd["product_price"], 2);
                         $total_price = number_format(($row["prod_qty"] * $rowProd["product_price"]), 2);
 
-                        $output = <<<EOT
+                        $output = '
                         <tr>
-                            <td>#{$row["prod_id"]}</td>
-                            <td>{$rowProd["product_title"]}</td>
-                            <td>{$row["prod_qty"]}</td>
-                            <td>₱{$prodPrice}</td>
-                            <td>₱{$total_price}</td>
+                            <td>#'.$row["prod_id"].'</td>
+                            <td>'.$rowProd["product_title"].'</td>
+                            <td>'.$row["prod_qty"].'</td>
+                            <td>₱'.$prodPrice.'</td>
+                            <td>₱'.$total_price.'</td>
                         </tr>
-                        EOT;
+                        ';
                         echo $output;
                     }
                 ?>
@@ -126,9 +130,7 @@ $result = $stmt->fetchAll();
     </div>
 
     <div class="invoice--footer">
-        <div class="invoice--payment">
-            <p><strong>Payment Method:</strong> <?php echo $mode_of_payment?></p>
-        </div>
+        
 
         <div class="invoice--actions">
             <a href="#" class="btn btn-rounded btn-outline-secondary print-invoice" onclick="window.addEventListener('load', window.print())">Print</a>

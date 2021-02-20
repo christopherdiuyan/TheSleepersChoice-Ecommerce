@@ -1,9 +1,8 @@
 <?php
 session_start();
-// require_once("dbcontroller.php");
 require_once('includes/db.php');
 require_once('assets/php/config.php');
-//require_once('functions/functions.php');
+
 if(isset($_POST["action"]))
 {
 
@@ -30,9 +29,6 @@ if(isset($_POST["action"]))
 	$statement->execute();
 	$result = $statement->fetchAll();
 	$total_row = $statement->rowCount();
-    echo '<link rel="stylesheet" href="custom.css"> 
-            <div id="notification-area" style="z-index: 9999">
-            </div>';
 
 	$output = '';
 
@@ -109,8 +105,8 @@ if(isset($_POST["action"]))
 		$output = '<div class="col-xl-6 col-md-6 col-lg-6 col-sm-6"><h3>No Data Found</h3></div>';
 	}
 
-	echo $output;
-    //getPaginator($total_row);
+    echo $output;
+	
 
 }
 if(isset($_POST["action_list"]))
@@ -138,8 +134,8 @@ if(isset($_POST["action_list"]))
     $statement = $connect->prepare($query);
     $statement->execute();
     $result = $statement->fetchAll();
-    $_SESSION['total_item'] = $total_row = $statement->rowCount();
-
+    $total_row = $statement->rowCount();
+    
     $output = '';
 
     if($total_row > 0)
@@ -185,8 +181,13 @@ if(isset($_POST["action_list"]))
                                     </div>
                                 </div>
                                 <div class="ht-product-list-action">
-                                    <a class="list-wishlist" title="Add To Wishlist" href="#"><i class="sli sli-heart"></i></a>
-                                    <a class="list-cart" title="Add To Cart" data-toggle="modal" data-target="#exampleModal"><i class="sli sli-basket-loaded"></i> Add to Cart</a>
+                                    <input type="hidden" name="hidden_name" id="img'. $row['sku'] .'" value="'. $prodImg .'" />
+                                    <input type="hidden" name="hidden_name" id="name'. $row['sku'] .'" value="'. $row['product_title'] .'" />
+                                    <input type="hidden" name="hidden_price" id="price'. $row['sku'] .'" value="'. $selling_price .'" />
+                                    <input type="hidden" name="qty" id="quantity'. $row['sku'] .'" value="1">
+                                    <a class="list-wishlist add_to_wishlist" title="Add To Wishlist" id="'. $row['sku'] .'" href="javascript:void(0)"><i class="sli sli-heart"></i></a>
+                                    <a href="javascript:void(0)" class="list-cart show-modal" title="Add To Cart" data-toggle="modal" data-target="#viewProduct" id="'. $row['sku'] .'"><i class="sli sli-basket-loaded"></i> Add to Cart</a>
+                                    
                                 </div>
                             </div>
                         </div>
@@ -208,98 +209,5 @@ if(isset($_POST["action_list"]))
 
 }
 
+
 ?>
-<?php
-function getPaginator($total_row){
-
-    $per_page=9;
-    $aWhere = array();
-    $aPath = '';
-
-    /// Begin for Product Categories /// 
-
-    if(isset($_REQUEST['p_cat'])&&is_array($_REQUEST['p_cat'])){
-
-        foreach($_REQUEST['p_cat'] as $sKey=>$sVal){
-
-            if((int)$sVal!=0){
-
-                $aWhere[] = 'p_cat_id='.(int)$sVal;
-                $aPath .= 'p_cat[]='.(int)$sVal.'&';
-
-            }
-
-        }
-
-    }    
-
-    /// Finish for Product Categories /// 
-
-    /// Begin for Categories /// 
-
-    if(isset($_REQUEST['cat'])&&is_array($_REQUEST['cat'])){
-
-        foreach($_REQUEST['cat'] as $sKey=>$sVal){
-
-            if((int)$sVal!=0){
-
-                $aWhere[] = 'cat_id='.(int)$sVal;
-                $aPath .= 'cat[]='.(int)$sVal.'&';
-
-            }
-
-        }
-
-    }    
-
-    // /// Finish for Categories ///
-
-    $sWhere = (count($aWhere)>0?' WHERE '.implode(' or ',$aWhere):'');
-    // $query = "select * from product";//.$sWhere;
-    // $statement = $connect->prepare($query);
-    // $statement->execute();
-    // $result = $statement->fetchAll();
-    // $total_records = $statement->rowCount();
-
-    $total_pages = ceil($total_row / $per_page);
-
-    echo '<div class="pro-pagination-style text-center mt-30">
-    <ul>';
-    //echo "<li> <a style='color:#DF7861' href='shop.php?page=1";
-    if(!empty($aPath)){
-
-        echo "&".$aPath;
-
-    }
-    echo '<li><a class="prev" href="#"><i class="sli sli-arrow-left"></i></a></li>';
-    //echo "'>".'First Page'."</a></li>";
-
-    for($i=1; $i<=$total_pages; $i++){
-
-        echo "<li> <a href='shop.php?page=".$i.(!empty($aPath)?'&'.$aPath:'')."'>".$i."</a></li>";
-        //echo '<li><a href="shop.php?page=".$i.(!empty($aPath)?'&'.$aPath:'').">".$i."</a></li>';
-
-    };
-
-    echo "<li> <a class='next' href='shop.php?page=$total_pages'>". '<i class="sli sli-arrow-right"></i></a></li>';
-    //echo '<li><a class="next" href="shop.php?page=$total_pages"><i class="sli sli-arrow-right"></i></a></li>';
-    if(!empty($aPath)){
-
-        echo "&".$aPath;
-
-    }
-
-   // echo "'>".'Last Page'."</a></li>";
-    echo '  </ul>
-</div>';
-}
- ?>
-
-<!-- <div class="pro-pagination-style text-center mt-30">
-    <ul>
-        <li><a class="prev" href="#"><i class="sli sli-arrow-left"></i></a></li>
-        <li><a class="active" href="#">1</a></li>
-        <li><a href="#">2</a></li>
-        <li><a class="next" href="#"><i class="sli sli-arrow-right"></i></a></li>
-    </ul>
-</div> -->

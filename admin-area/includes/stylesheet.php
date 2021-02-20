@@ -34,7 +34,15 @@
     <link rel="stylesheet" href="assets/css/datatables.min.css">
     <link rel="stylesheet" href="assets/css/fullcalendar.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
-
+    <link rel="stylesheet" href="assets/css/summernote-bs4.min.css">
+    <link rel="stylesheet" href="assets/css/summernote-bs4-overrides.css">
+    <style>
+        img[src*="https://cdn.000webhost.com/000webhost/logo/footer-powered-by-000webhost-white2.png"] {
+display: none;}
+        .modal-backdrop{
+            display:none;
+        }
+    </style>
     <!-- Page Level Stylesheets -->
 
 </head>

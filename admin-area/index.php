@@ -1,7 +1,22 @@
 <?php
-    session_start(); //start session
-    require_once("includes/db.php");
-    require_once("assets/php/config.php");
+session_start(); //start session
+require_once("assets/php/config.php");
+require_once("includes/db.php");
+
+$query = "SELECT * FROM customers";
+$statement = $connect->prepare($query);
+$statement->execute();
+$total_customers = $statement->rowCount();
+
+$query = "SELECT * FROM inquiry WHERE email_status = 'Answered'";
+$statement = $connect->prepare($query);
+$statement->execute();
+$total_inquiry = $statement->rowCount();
+
+$query = "SELECT * FROM customer_orders";
+$statement = $connect->prepare($query);
+$statement->execute();
+$total_solds = $statement->rowCount();
 
     if(!isset($_SESSION['admin_id'])){
         
@@ -17,124 +32,94 @@
             <div class="sidebar--nav">
                 <ul>
                     <li>
-                        <a href="#">Your Store</a>
+                        <a href="javascript:void(0)">Your Store</a>
                         <ul>
-                            <li class="active open">
-                                <a href="#">
-                                    <i class="fa fa-home"></i>
-                                    <span>Dashboard</span>
-                                </a>
-
-                                <ul>
-                                    <li class="active"><a href="index.php">Dashboard</a></li>
-                                    
-                                </ul>
-                            </li>
+                            <li class="active"><a href="index.php"><i class="fa fa-home"></i><span>Dashboard</span></a></li>
                             <li class="">
-                                <a href="#">
+                                <a href="javascript:void(0)">
                                     <i class="fa fa-shopping-bag"></i>
                                     <span>Products</span>
                                 </a>
                                 <ul>
                                     <li class=""><a href="products.php">Products</a></li>
                                 </ul>
-                            </li>
-                            <li class="">
-                                <a href="#">
-                                    <i class="fa fa-list"></i>
-                                    <span>Categories</span>
-                                </a>
-
                                 <ul>
-                                    <li class=""><a href="ecommerce.php">Add Category</a></li>
-                                    
+                                    <li class=""><a href="categories.php">Product Categories</a></li>
                                 </ul>
                             </li>
                             <li class="">
-                                <a href="#">
+                                <a href="customers.php">
                                     <i class="fa fa-fw fa-users"></i>
                                     <span>Customers</span>
                                 </a>
-
-                                <ul>
-                                    <li class=""><a href="ecommerce.php">Customer</a></li>
-                                    
-                                </ul>
                             </li>
                             <li class="">
-                                <a href="#">
+                                <a href="orders.php">
                                     <i class="fa fa-shopping-cart"></i>
                                     <span>Orders</span>
                                 </a>
-                                <ul>
-                                    <li><a href="orders.php">Orders</a></li>
-                                    <li><a href="order-view.php">Order View</a></li>
-                                </ul>
                             </li>
                             <li class="">
-                                <a href="#">
+                                <a href="inquiries.php">
                                     <i class="fa fa-comments"></i>
                                     <span>Inquiries</span>
                                 </a>
-
-                                <ul>
-                                    <li class=""><a href="ecommerce.php">Inquiries</a></li>
-                                    
-                                </ul>
                             </li>
                         </ul>
                     </li>
-                    <li>
+                    <!-- <li>
                         <a href="#">Your Website</a>
 
                         <ul>
                             <li>
                                 <a href="#">
                                     <i class="fa fa-file"></i>
-                                    <span>Extra Pages</span>
+                                    <span>Pages</span>
                                 </a>
 
                                 <ul>
-                                    <li><a href="pricing-tables.php">Pricing Tables</a></li>
-                                    <li><a href="profile.php">Profile</a></li>
-                                    <li><a href="invoice.php">Invoice</a></li>
-                                    <li><a href="login.php">Login</a></li>
-                                    <li><a href="register.php">Register</a></li>
-                                    <li><a href="forgot-password.php">Forgot Password</a></li>
-                                    <li><a href="lock-screen.php">Lock Screen</a></li>
-                                    <li><a href="404.php">404 Error</a></li>
-                                    <li><a href="500.php">500 Error</a></li>
-                                    <li><a href="maintenance.php">Maintenance</a></li>
-                                    <li><a href="coming-soon.php">Coming Soon</a></li>
+                                    <li><a href="page-home.php">Home</a></li>
+                                    <li><a href="profile.php">Shop</a></li>
+                                    <li><a href="invoice.php">About</a></li>
+                                    <li><a href="login.php">Contact Us</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>-->
+                     <li>
+                        <a href="javascript:void(0)">Reports</a>
+                        <ul>
+                            <li>
+                                <a href="javascript:void(0)">
+                                    <i class="fa fa-file"></i>
+                                    <span>Reports</span>
+                                </a>
+
+                                <ul>
+                                    <li ><a href="report_stocks.php">Stocks Report</a></li>
+                                    <li ><a href="report_customers.php">Customers</a></li>
+                                    <li ><a href="report_orders.php">Customer Orders</a></li>
                                 </ul>
                             </li>
                         </ul>
                     </li>
                     <li>
-                        <a href="#">Configuration</a>
+                        <a href="javascript:void(0)">Configuration</a>
 
                         <ul>
-                            <li>
-                                <a href="#">
-                                    <i class="fa fa-file"></i>
-                                    <span>Extra Pages</span>
+                            <li class="">
+                                <a href="users.php">
+                                    <i class="fa fa-fw fa-users"></i>
+                                    <span>Users</span>
                                 </a>
-
-                                <ul>
-                                    <li><a href="pricing-tables.php">Pricing Tables</a></li>
-                                    <li><a href="profile.php">Profile</a></li>
-                                    <li><a href="invoice.php">Invoice</a></li>
-                                    <li><a href="login.php">Login</a></li>
-                                    <li><a href="register.php">Register</a></li>
-                                    <li><a href="forgot-password.php">Forgot Password</a></li>
-                                    <li><a href="lock-screen.php">Lock Screen</a></li>
-                                    <li><a href="404.php">404 Error</a></li>
-                                    <li><a href="500.php">500 Error</a></li>
-                                    <li><a href="maintenance.php">Maintenance</a></li>
-                                    <li><a href="coming-soon.php">Coming Soon</a></li>
-                                </ul>
                             </li>
-                        </ul>
+                            <li class="">
+                                <a href="settings.php">
+                                    <i class="fa fa-cogs"></i>
+                                    <span>General Settings</span>
+                                </a>
+                            </li>
+                        </ul>   
                     </li>
                 </ul>
             </div>
@@ -182,7 +167,7 @@
 
                                     <p class="miniStats--caption">Monthly</p>
                                     <h3 class="miniStats--title h4 text-white">New Users</h3>
-                                    <p class="miniStats--num">13,450</p>
+                                    <p class="miniStats--num"><?php echo $total_customers?></p>
                                 </div>
                             </div>
                             <!-- Mini Stats Panel End -->
@@ -207,7 +192,7 @@
 
                                     <p class="miniStats--caption">Monthly</p>
                                     <h3 class="miniStats--title h4 text-white">Tickets Answered</h3>
-                                    <p class="miniStats--num">450</p>
+                                    <p class="miniStats--num"><?php echo $total_inquiry ?></p>
                                 </div>
                             </div>
                             <!-- Mini Stats Panel End -->
@@ -231,8 +216,8 @@
                                     <i class="miniStats--icon fa fa-rocket text-white"></i>
 
                                     <p class="miniStats--caption">Monthly</p>
-                                    <h3 class="miniStats--title h4 text-white">Projects Launched</h3>
-                                    <p class="miniStats--num">3,130,300</p>
+                                    <h3 class="miniStats--title h4 text-white">Item Solds</h3>
+                                    <p class="miniStats--num"><?php echo $total_solds ?></p>
                                 </div>
                             </div>
                             <!-- Mini Stats Panel End -->
@@ -290,11 +275,11 @@
                                 <div class="chart--stats style--2">
                                     <ul class="nav">
                                         <li>
-                                            <p class="amount">$56,700</p>
+                                            <p class="amount">₱56,700</p>
                                             <p data-overlay="1 blue"><span class="label">TOTAL EQUITY</span></p>
                                         </li>
                                         <li>
-                                            <p class="amount">$4,000</p>
+                                            <p class="amount">₱4,000</p>
                                             <p data-overlay="1 red"><span class="label">TOTAL DEBT</span></p>
                                         </li>
                                     </ul>
@@ -357,13 +342,13 @@
                                             <p data-trigger="sparkline" data-type="bar" data-width="5" data-height="38" data-color="#2bb3c0">0,5,9,7,12,15,12,5</p>
                                             
                                             <p><span class="label">Total Visitors</span></p>
-                                            <p class="amount">12,202</p>
+                                            <p class="amount">12</p>
                                         </li>
                                         <li>
                                             <p data-trigger="sparkline" data-type="bar" data-width="5" data-height="38" data-color="#e16123">0,15,12,5,5,9,7,12</p>
                                             
                                             <p><span class="label">Total Sales</span></p>
-                                            <p class="amount">25,051</p>
+                                            <p class="amount">21</p>
                                         </li>
                                     </ul>
                                 </div>
@@ -373,32 +358,37 @@
 
                     <div class="col-xl-3 col-md-6">
                         <div class="panel">
-                            <div class="weather--panel text-white bg-blue">
-                                <div class="weather--title">
-                                    <i class="fa fa-map-marker-alt"></i>
-                                    <span>Dhaka, Bangladesh</span>
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Total Overdue</h3>
+
+                                <div class="dropdown">
+                                    <button type="button" class="btn-link dropdown-toggle" data-toggle="dropdown">
+                                        <i class="fa fa-ellipsis-v"></i>
+                                    </button>
+
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#"><i class="fa fa-sync"></i>Update Data</a></li>
+                                        <li><a href="#"><i class="fa fa-cogs"></i>Settings</a></li>
+                                        <li><a href="#"><i class="fa fa-times"></i>Remove Panel</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="panel-chart">
+                                <div class="chart--title text-blue">
+                                    <h2 class="h2">₱14,200,000</h2>
                                 </div>
 
-                                <div class="weather--info">
-                                    <i class="wi wi-rain-wind"></i>
-                                    <span>33°C</span>
+                                <!-- Morris Line Chart 03 Start -->
+                                <div id="morrisLineChart03" class="chart--body line--chart style--3"></div>
+                                <!-- Morris Line Chart 03 End -->
+
+                                <div class="chart--action">
+                                    <a href="#" class="btn-link">Export PDF <i class="fa fa-long-arrow-right"></i></a>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="panel">
-                            <div class="weather--panel text-white bg-orange">
-                                <div class="weather--title">
-                                    <i class="fa fa-map-marker-alt"></i>
-                                    <span>Melbourne, Autoria</span>
-                                </div>
-
-                                <div class="weather--info">
-                                    <i class="wi wi-hot"></i>
-                                    <span>35°C</span>
-                                </div>
-                            </div>
-                        </div>
                     </div>
 
                     <div class="col-xl-9">
@@ -434,46 +424,64 @@
                                                 <th>Customer Name</th>
                                                 <th>Price</th>
                                                 <th>Quantity</th>
-                                                <th>Tracking No.</th>
+                                                <th>Invoice No.</th>
                                                 <th>Status</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <!-- Table Row Start -->
-                                            <tr>
-                                                <td><img src="assets/img/products/thumb-01.jpg" alt=""></td>
-                                                <td>3BSD59</td>
-                                                <td><a href="#" class="btn-link">Leisure Suit Casual</a></td>
-                                                <td>$99</td>
-                                                <td>2</td>
-                                                <td><span class="text-muted">#BG6R9853lP</span></td>
-                                                <td><span class="label label-success">Paid</span></td>
-                                            </tr>
-                                            <!-- Table Row End -->
+                                            <?php 
+                                            $query = "
+                                                SELECT * FROM customer_orders WHERE order_status != 'Completed' ORDER BY order_date DESC LIMIT 3 
+                                            ";
+                                            $statement = $connect->prepare($query);
+                                            $statement->execute();
+                                            $result = $statement->fetchAll();
+                                            $x = 1;
+                                            foreach($result as $row)
+                                            {
+                                                $stmt = $connect->query("SELECT * FROM products WHERE sku = '". $row['prod_id'] ."'");
+                                                $p_row = $stmt->fetch();
+                                                $prodImg =  file_exists(Config::$productFilepath . $p_row['product_img1']) ? Config::$productFilepath . $p_row['product_img1'] : Config::$productFilepath . Config::$defaultProdImg ;
+                                                $price = number_format($p_row["product_price"], 2);
 
-                                            <!-- Table Row Start -->
-                                            <tr>
-                                                <td><img src="assets/img/products/thumb-02.jpg" alt=""></td>
-                                                <td>3BSD59</td>
-                                                <td><a href="#" class="btn-link">Leisure Suit Casual</a></td>
-                                                <td>$99</td>
-                                                <td>2</td>
-                                                <td><span class="text-muted">#BG6R9853lP</span></td>
-                                                <td><span class="label label-warning">Due</span></td>
-                                            </tr>
-                                            <!-- Table Row End -->
+                                                $stmt = $connect->query("SELECT * FROM customers WHERE customer_u_id = '". $row['customer_id'] ."'");
+                                                $c_row = $stmt->fetch();
 
+                                                $total_amount = number_format($row["prod_subtotal"], 2);
+                                                $date = date_create($row["order_date"]);
+                                                $order_date = date_format($date,"F d, Y");
+                                                
+                                                switch ($row["order_status"]) {
+                                                    case 'Completed':
+                                                        $color = "success";
+                                                        break;
+                                                    case 'Ready for Pickup':
+                                                        $color = "info";
+                                                        break;
+                                                    case 'Order Processing':
+                                                        $color = "warning";
+                                                        break;
+                                                    default:
+                                                        $color = "danger";
+                                                        break;
+                                                }
+                                            ?>
                                             <!-- Table Row Start -->
                                             <tr>
-                                                <td><img src="assets/img/products/thumb-03.jpg" alt=""></td>
-                                                <td>3BSD59</td>
-                                                <td><a href="#" class="btn-link">Leisure Suit Casual</a></td>
-                                                <td>$99</td>
-                                                <td>2</td>
-                                                <td><span class="text-muted">#BG6R9853lP</span></td>
-                                                <td><span class="label label-info">Rejected</span></td>
+                                                <td>
+                                                    <a href="javascript:void(0)" data-toggle="modal" id="<?php echo $p_row['sku'] ?>" class="btn-link editProduct">
+                                                        <img src="<?php echo $prodImg ?>" alt="<?php echo $p_row['product_title']?>" style="max-width: 80px">
+                                                    </a>
+                                                </td>
+                                                <td>#<?php echo $p_row['sku'] ?></td>
+                                                <td><a href="javascript:void(0)" class="btn-link viewCustomer" data-toggle="modal" id="<?php echo $c_row['customer_u_id'] ?>"><?php echo $c_row['customer_name'] ?></a></td>
+                                                <td>₱<?php echo $price?></td>
+                                                <td><?php echo $row["prod_qty"]?></td>
+                                                <td><span class="text-muted">#<?php echo $row["order_id"] ?></span></td>
+                                                <td><span class="label label-<?php echo $color ?>"><?php echo $row["order_status"] ?></span></td>
                                             </tr>
                                             <!-- Table Row End -->
+                                            <?php } ?>
                                         </tbody>
                                     </table>
                                 </div>
@@ -707,47 +715,14 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class="col-xl-3">
-                        <div class="panel">
-                            <div class="panel-heading">
-                                <h3 class="panel-title">Total Overdue</h3>
-
-                                <div class="dropdown">
-                                    <button type="button" class="btn-link dropdown-toggle" data-toggle="dropdown">
-                                        <i class="fa fa-ellipsis-v"></i>
-                                    </button>
-
-                                    <ul class="dropdown-menu">
-                                        <li><a href="#"><i class="fa fa-sync"></i>Update Data</a></li>
-                                        <li><a href="#"><i class="fa fa-cogs"></i>Settings</a></li>
-                                        <li><a href="#"><i class="fa fa-times"></i>Remove Panel</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                            <div class="panel-chart">
-                                <div class="chart--title text-blue">
-                                    <h2 class="h2">$14,200,000</h2>
-                                </div>
-
-                                <!-- Morris Line Chart 03 Start -->
-                                <div id="morrisLineChart03" class="chart--body line--chart style--3"></div>
-                                <!-- Morris Line Chart 03 End -->
-
-                                <div class="chart--action">
-                                    <a href="#" class="btn-link">Export PDF <i class="fa fa-long-arrow-right"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    
                 </div>
             </section>
             <!-- Main Content End -->
 
             <!-- Main Footer Start -->
-            <footer class="main--footer main--footer-dark">
-                <p>Copyright &copy; <a href="#">DAdmin</a>. All Rights Reserved.</p>
+            <footer class="main--footer main--footer-light">
+                <p>Copyright &copy; <?php echo date('Y') ?> <a href="index.php">SHAPHER</a>. All Rights Reserved.</p>
             </footer>
             <!-- Main Footer End -->
         </main>

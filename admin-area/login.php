@@ -18,7 +18,7 @@
                             <div class="m-account--form">
                                 <!-- Logo Start -->
                                 <div class="logo">
-                                    <img src="assets/img/logo.png" alt="">
+                                    <img src="assets/img/shapher-logo.png" alt="">
                                 </div>
                                 <!-- Logo End -->
 
@@ -31,7 +31,7 @@
                                                 <i class="fas fa-envelope"></i>
                                             </div>
 
-                                            <input type="email" name="user-email" placeholder="Email" class="form-control" autocomplete="off" value="tophe.diuyan@gmail.com" required>
+                                            <input type="email" name="user-email" placeholder="Email" class="form-control" required>
                                         </div>
                                     </div>
 
@@ -41,7 +41,8 @@
                                                 <i class="fas fa-key"></i>
                                             </div>
 
-                                            <input type="password" name="user-password"placeholder="Password" class="form-control" autocomplete="off" value="adminako" required>
+                                            <input type="password" name="user-password"placeholder="Password" class="form-control"  required>
+                                            <!--autocomplete="off"-->
                                         </div>
                                     </div>
 

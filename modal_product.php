@@ -1,4 +1,3 @@
-
 <?php 
 require_once('includes/db.php');
 require_once('assets/php/config.php');
@@ -99,12 +98,9 @@ $priceOld = $row['product_discount'] > 0 ? "₱ ". number_format($row['product_p
                         </div>
                     </div>
                 </div>
-                <style type="text/css">
-                  
-                </style>
                 <div class="pro-details-quality">
                     <div class="cart-plus-minus">
-                        <input class="cart-plus-minus-box" type="text" name="qtybutton" id="quantity<?php echo $sku ?>" value="1">
+                        <input class="cart-plus-minus-box" type="text" name="qtybutton" value="1">
                     </div>
                     <div class="pro-details-cart">
                         <input type="button" name="add_to_cart" id="<?php echo $sku ?>" class="add_to_cart" value="Add to Cart" />

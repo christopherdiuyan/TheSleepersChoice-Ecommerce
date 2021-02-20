@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+$total_item = 0;
 $output = '
 <table>
     <thead>
@@ -41,6 +41,7 @@ if(!empty($_SESSION["shopping_wishlist"]))
             </td>
         </tr>
         ';
+        $total_item = $total_item + 1;
     }
 }
 else
@@ -53,7 +54,9 @@ else
 $output .= '</tbody>
         </table>';
 $data = array(
-    'wishlist_details'      =>  $output);  
+    'wishlist_details'      =>  $output,
+    'total_item'      =>  $total_item
+    );  
 
 echo json_encode($data);
 

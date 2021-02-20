@@ -322,3 +322,236 @@
             border: 1px solid red;  /* set a border for all printed pages */
         }
     }
+/* 6.12. RECORDS LIST */
+.records--list {
+    padding-bottom: 30px;
+    color: #696969;
+}
+
+.records--list .topbar {
+    display: -ms-flexbox;
+    display: -webkit-box;
+    display: flex;
+    margin-bottom: 13px;
+    padding: 32px 30px;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.08);
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+
+.records--list .toolbar {
+    min-height: 0;
+    margin-bottom: 0;
+    padding-bottom: 6px;
+    color: #393939;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.records--list .topbar .right {
+    color: #393939;
+    width: 100%;
+    margin-top: 23px;
+    margin-left: auto;
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+.records--list .dataTables_length {
+    margin-right: 10px;
+    padding-right: 10px;
+    border-right: 1px solid #393939;
+}
+
+.records--list .dataTables_length select:not(:focus) {
+    border: 1px solid #eee;
+}
+
+.records--list .dataTables_info {
+    padding-top: 0;
+}
+
+.records--list .dataTable {
+    padding: 0 30px;
+    overflow: auto;
+}
+
+.records--list .dataTable.no-footer {
+    border-bottom-width: 0;
+}
+
+.records--list .dataTable th {
+    padding-bottom: 13px;
+    color: #393939;
+    border-bottom-color: #eee;
+}
+
+.no-outlines .records--list .dataTable th:focus {
+    outline: 0;
+}
+
+.records--list .dataTable th,
+.records--list .dataTable td {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.records--list .dataTable tbody tr td {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ebebea;
+}
+
+.records--list .dataTable tbody tr:nth-child(odd) {
+    background-color: #f8f8f8;
+}
+
+.records--list .dataTable img {
+    max-width: 80px;
+    border: 1px solid #ebebea;
+}
+
+.dataTables_paginate {
+    margin-top: 8px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.dataTables_wrapper .dataTables_paginate span .paginate_button {
+    min-width: 34px;
+    padding: 4px 0;
+    background: transparent;
+    border-color: #ebebea;
+    border-radius: 50%;
+}
+
+.dataTables_wrapper .dataTables_paginate span .paginate_button:hover,
+.dataTables_wrapper .dataTables_paginate span .paginate_button:active,
+.dataTables_wrapper .dataTables_paginate span .paginate_button.current,
+.dataTables_wrapper .dataTables_paginate span .paginate_button.current:hover {
+    color: #fff !important;
+    background: #e16123;
+    border-color: #e16123;
+    box-shadow: none;
+}
+
+
+.dataTables_wrapper .dataTables_paginate > .paginate_button:hover,
+.dataTables_wrapper .dataTables_paginate > .paginate_button:active {
+    color: #e16123 !important;
+    background: transparent;
+    border-color: transparent;
+    box-shadow: none;
+}
+
+@media (min-width: 768px) {
+    .records--list .topbar .right {
+        width: auto;
+        margin-top: 0;
+    }
+}
+
+.main {
+    width: 19rem;
+    height: 5rem;
+    padding: 12px;
+    background-color: white;
+    text-align: center;
+    border-radius: 3rem;
+    overflow: hidden;
+    transition: width .6s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+.main>#singular-form {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+}
+.main>#singular-form button {
+    width: 9rem;
+    padding: 0;
+    border: none;
+    outline: none;
+    border-radius: 3rem;
+    cursor: pointer;
+}
+.main>#singular-form>button#subs {
+    padding: 0;
+    width: 100%;
+    color: #DBBCA9;
+    background-color: transparent;
+    z-index: 3;
+}
+.main>#singular-form>#email-input {
+    z-index: 2;
+}
+.main>#singular-form>#email-input>input {
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+    background-color: #fff;
+    box-sizing: border-box;
+    border: none;
+    outline: none;
+    padding: 0 26% 0 3%;
+    opacity: 0;
+    transform: scale(0);
+    transition: all .6s ease .4s;
+}
+.main>#singular-form>#email-input>button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    background-color: #DBBCA9;
+    color: white;
+    opacity: 0;
+    transform: scale(0);
+    transition: all .6s ease .4s;
+}
+.main>#singular-form>#success {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #DBBCA9;
+    font-weight: bold;
+    z-index: 1;
+}
+.main>#singular-form>button#subs,
+.main>#singular-form>#email-input,
+.main>#singular-form>#success {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    transform: scale(0);
+    opacity: 0;
+}
+.main>#singular-form>button#subs {
+    transition: all .6s ease;
+}
+.main>#singular-form>#email-input {
+    transform: scale(1);
+    opacity: 1;
+    transition: all .6s ease .4s;
+}
+ 
+.main>#singular-form>#success {
+    transition: all .2s ease .6s;
+}
+.main>#singular-form>button#subs.shown,
+.main>#singular-form>#email-input.shown,
+.main>#singular-form>#success.shown,
+.main>#singular-form>#email-input>button.shown,
+.main>#singular-form>#email-input>input.shown {
+    transform: scale(1);
+    opacity: 1;
+}

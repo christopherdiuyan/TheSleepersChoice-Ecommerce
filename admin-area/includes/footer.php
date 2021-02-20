@@ -1,5 +1,134 @@
 <?php //require_once("includes/db.php"); ?>
+  <!-- Vertically Centered Modal Start -->
+    <div id="editOrder" class="modal fade">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
 
+                <div class="modal-body" id="modal-edit-order">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Vertically Centered Modal End -->
+   <!-- Vertically Centered Modal Start -->
+    <div id="viewCustomer" class="modal fade">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <div class="modal-body" id="modal-view-customer">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Vertically Centered Modal End -->
+   <!-- Vertically Centered Modal Start -->
+    <div id="viewInquiry" class="modal fade">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body" >
+                     <div class="panel">
+                        <!-- App Start -->
+                        <div class="app_wrapper row">
+                            <!-- App Content Start -->
+                            <div class="app_content col-lg-12">
+                                <!-- Mail Compose Start -->
+                                <div class="mail-compose">
+                                    <h3 class="mail-compose__title">Reply Inquiry</h3>
+                                    <form action="#" method="post">
+                                        <span id="modal-view-inquiry"></span>
+                                        <div class="btn-list pt-3"  style="text-align:center">
+                                            <button type="button" onclick="sendEmail()" class="btn btn-lg btn-rounded btn-success w-50">Send <i class="far fa-paper-plane"></i>
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                                <!-- Mail Compose End -->
+                            </div>
+                            <!-- App Content End -->
+                        </div>
+                        <!-- App Sidebar End -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Vertically Centered Modal End -->
+    <!-- Vertically Centered Modal Start -->
+    <div id="addInquiry" class="modal fade">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body" >
+                     <div class="panel">
+                        <!-- App Start -->
+                        <div class="app_wrapper row">
+                            <!-- App Content Start -->
+                            <div class="app_content col-lg-12">
+                                <!-- Mail Compose Start -->
+                                <div class="mail-compose">
+                                    <h3 class="mail-compose__title">Compose New Message</h3>
+                                    <form action="#" method="post">
+                                        <span id="modal-add-inquiry"></span>
+                                        <div class="btn-list pt-3"  style="text-align:center">
+                                            <button type="button" onclick="sendEmail()" class="btn btn-lg btn-rounded btn-success w-50">Send <i class="far fa-paper-plane"></i>
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                                <!-- Mail Compose End -->
+                            </div>
+                            <!-- App Content End -->
+                        </div>
+                        <!-- App Sidebar End -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Vertically Centered Modal End -->
+     <!-- Vertically Centered Modal Start -->
+    <div id="editUser" class="modal fade">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <div class="modal-body" id="modal-edit-user">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Vertically Centered Modal End -->
+     <!-- Vertically Centered Modal Start -->
+    <div id="addUser" class="modal fade">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <div class="modal-body" id="modal-add-user">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Vertically Centered Modal End -->
   </div>
     <!-- Wrapper End -->
     <!-- Scripts -->
@@ -22,160 +151,10 @@
     <script src="assets/js/main.js"></script>
     <script src="assets/js/sweetalert.min-1.js"></script>
     <!-- Page Level Scripts -->
-    <script type="text/javascript">
-        $(document).ready(function(){
-
-        /*--
-        Display Modal of Product Details
-        -----------------------------------*/
-        $(document).on('click', '.editProduct', function(){  
-           var prodID = $(this).attr("id");  
-           if(prodID != '')  
-           {  
-                $.ajax({  
-                     url:"modal_prod_details.php",  
-                     method:"POST",  
-                     data:{prodID:prodID},  
-                     success:function(data){  
-
-                          $('#modal-edit-product').html(data);  
-                          $('#editProduct').modal('show');  
-                     }
-                });  
-            }            
-        });
-
-        /*--
-        Display Modal of Customer Order
-        -----------------------------------*/
-        $(document).on('click', '.editOrder', function(){  
-           var orderID = $(this).attr("id");  
-           if(orderID != '')  
-           {  
-                $.ajax({  
-                     url:"modal_order.php",  
-                     method:"POST",  
-                     data:{orderID:orderID},  
-                     success:function(data){  
-
-                          $('#modal-edit-order').html(data);  
-                          $('#editOrder').modal('show');  
-                     }
-                });  
-            }            
-        });
-
-        /*--
-        Update Product Details
-        -----------------------------------*/
-        $(document).on('click', '.update-basic', function(e){
-
-            e.preventDefault(); // avoid to execute the actual submit of the form.
-
-            var prodID = $(this).attr("id");
-            var prodName = $('#prodName').val();
-            var prodDesc = $('#prodDesc').val();
-            var prodCat = $('#prodCat').val();
-            var prodColor = $('#prodColor').val();
-            var prodSize = $('#prodSize').val();
-            var prodPrice = $('#prodPrice').val();
-            var prodDiscount = $('#prodDiscount').val();
-            var prodStock = $('#prodStock').val();
-            var prodAvailability = $('input[name="prodAvailability"]:checked').val();
-
-            var action = "update_prodBasic";
-
-             $.ajax({
-               type: "POST",
-               url: "assets/php/process.php",
-               data: {action:action, prodID:prodID, prodName:prodName, prodDesc:prodDesc, prodCat:prodCat, prodColor:prodColor, prodSize:prodSize, prodPrice:prodPrice, prodDiscount:prodDiscount, prodStock:prodStock, prodAvailability:prodAvailability},
-               success: function(data)
-               {
-                    swal({
-                      title: "Record Successfully Saved!",
-                      text: "Your Record is now Updated.",
-                      icon: "success",
-                    });
-                    setTimeout(function(){
-                       window.location.reload(1);
-                    }, 1000);
-               }
-            });
-        }); 
-
-        $(document).on('click', '.suploadPhoto', function(e){
-
-            e.preventDefault(); // avoid to execute the actual submit of the form.
-
-            var prodID = $('#prodID').val();
-            var upload11 = document.getElementById("upload1").value;
-            var upload2 = document.getElementById("upload1");
-            var upload3 = document.getElementById("upload1");
-            var img1 = $('#img1').val();
-            var img2 = $('#img2').val();
-            var img3 = $('#img3').val();
-
-            var upload1 = upload11 != '' ? document.getElementById("upload1").value : $('#img1').val();
-            var action = "update_prodImg";
-            alert(upload1);
-            //  $.ajax({
-            //    type: "POST",
-            //    url: "assets/php/process.php",
-            //    data: {action:action, prodID:prodID, img1:img1, img2:img2, img3:img3},
-            //    success: function(data)
-            //    {
-            //         swal({
-            //           title: "Record Successfully Saved!",
-            //           text: "Your Record is now Updated.",
-            //           icon: "success",
-            //         });
-            //         setTimeout(function(){
-            //            window.location.reload(1);
-            //         }, 1000);
-            //    }
-            // });
-        }); 
-
-
-        /*-----------------------
-        Notification
-        --------------------------- */
-
-        function notify(type,message){
-              (()=>{
-                let n = document.createElement("div");
-                let id = Math.random().toString(36).substr(2,10);
-                n.setAttribute("id",id);
-                n.classList.add("notification",type);
-                n.innerText = message;
-                document.getElementById("notification-area").appendChild(n);
-                setTimeout(()=>{
-                  var notifications = document.getElementById("notification-area").getElementsByClassName("notification");
-                  for(let i=0;i<notifications.length;i++){
-                    if(notifications[i].getAttribute("id") == id){
-                      notifications[i].remove();
-                      break;
-                    }
-                  }
-                },5000);
-              })();
-          }
-
-          function notifySuccess(message){
-            notify("success", message);
-          }
-          function notifyError(){
-            notify("error","Please Enter Number of Quantity");
-          }
-          function notifyInfo(){
-            notify("info","This is demo info notification message");
-          }
-
-
-        });
-
-    </script>
-
+    <script src="assets/js/custom.js"></script>
+    <script src="assets/js/phpmailer.js"></script>
+    <script src="assets/js/summernote-bs4.min.js"></script>
+    <script src="assets/js/summernote-bs4-init.js"></script>
 </body>
 
 </html>

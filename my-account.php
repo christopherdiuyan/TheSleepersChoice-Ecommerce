@@ -1,6 +1,4 @@
-<?php 
-include_once("includes/header.php"); 
-
+<?php include_once("includes/header.php"); 
 
 if(isset($_SESSION['user_uni_no']))
 {
@@ -98,16 +96,7 @@ else
                                             <span class="order_details"></span>
                                         </div>
                                     </div>
-                                </div>
-                                <!-- Single Tab Content End -->
-                                <!-- Single Tab Content Start -->
-                               <!--  <div class="tab-pane fade" id="payment-method" role="tabpanel">
-                                    <div class="myaccount-content">
-                                        <h3>Payment Method</h3>
-                                        <p class="saved-message">You Can't Saved Your Payment Method yet.</p>
-                                    </div>
-                                </div> -->
-                                <!-- Single Tab Content End -->    
+                                </div>  
                                 <!-- Single Tab Content Start -->
                                 <div class="tab-pane fade" id="address-edit" role="tabpanel">
                                     <div class="myaccount-content">

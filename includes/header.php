@@ -32,13 +32,17 @@ require_once('assets/php/config.php');
     <!-- jQuery JS -->
 	<script src="assets/js/vendor/jquery-1.12.4.min.js"></script>
     <!-- New JS -->
-  
+  	
     <!-- Custom CSS -->
     <link rel="stylesheet" href="assets/css/custom.css">
+    <link rel="stylesheet" href="assets/css/style404.css">
+    <script>(function(w, d) { w.CollectId = "600da43cf5130668a3113f97"; var h = d.head || d.getElementsByTagName("head")[0]; var s = d.createElement("script"); s.setAttribute("type", "text/javascript"); s.async=true; s.setAttribute("src", "https://collectcdn.com/launcher.js"); h.appendChild(s); })(window, document);</script>
 </head>
 <body>
+<div class="breadcrumb-area text-center pt-20 wrapper-notif">
+    <h6><strong>FREE SHIPPING</strong> FOR ORDERS <strong>₱5,000</strong> ABOVE</h6>
+</div>
 <div class="wrapper">
-
 	<header class="header-area sticky-bar">
 	    <div class="main-header-wrap">
 	        <div class="container">
@@ -46,12 +50,12 @@ require_once('assets/php/config.php');
 	                <div class="col-xl-2 col-lg-2">
 	                    <div class="logo pt-40">
 	                        <a href="index.php">
-	                            <img src="assets/img/logo/company-logo-2.svg" width="176 px" height="80 px" style="margin-top: -25px" alt="Shameepher">
+	                            <img src="assets/img/logo/sleepers0choice-logo.jpg" width="176 px" height="80 px" style="margin-top: -25px" alt="Shapher">
 	                        </a>
 	                    </div>
 	                </div>
 
-	                <div class="col-xl-7 col-lg-7 ">
+	                <div class="col-xl-6 col-lg-7 ">
 	                    <div class="main-menu">
 	                        <nav>
 	                            <ul>
@@ -67,13 +71,25 @@ require_once('assets/php/config.php');
 	                        </nav>
 	                    </div>
 	                </div>
-
-	                <div class="col-xl-3 col-lg-3">
+                     <?php $size = isset($_SESSION['user_uni_no']) ? "4" : "2"; ?>
+	                <div class="col-xl-<?php echo $size ?> col-lg-3">
 	                    <div class="header-right-wrap pt-40">
 	                        <div class="header-search">
 	                            <a class="search-active" href="javascript:void(0)"><i class="sli sli-magnifier"></i></a>
 	                        </div>
+	                        
+                            <div class="cart-wrap">
+	                            <button class="icon-cart-active wishlist-icon" onclick="location.href = 'wishlist.php';">
+	                                <span class="icon-cart">
+	                                    <i class="sli sli-heart"></i>
+	                                    <span class="wishlist-count-style">0
+	                                    </span>
+	                                </span>
+	                            </button>
+	                        </div>
+	                        
 	                        <div class="cart-wrap">
+	                           
 	                            <button class="icon-cart-active">
 	                                <span class="icon-cart">
 	                                    <i class="sli sli-bag"></i>
@@ -89,36 +105,36 @@ require_once('assets/php/config.php');
 	                                
 	                            </div>
 	                        </div>
-
-	                        <div class="setting-wrap">
-	                            <button class="setting-active">
-	                                <i class="sli sli-settings"></i>
-	                            </button>
-	                            <div class="setting-content">
-	                                <ul>
-	                                    <li>
-	                                        <h4>Account</h4>
-	                                        <ul>
-	                                        	<?php if(isset($_SESSION['user_uni_no'])) { ?>
-	                                        	<li><a href="my-account.php">My Account</a></li>
-	                                            <li><a href="cart-page.php">Cart Page </a></li>
-		                                        <li><a href="checkout.php">Checkout </a></li>
-		                                        <li><a href="compare-page.php">Compare </a></li>
-		                                        <li><a href="wishlist.php">Wishlist </a></li>
-		                                        <li><a href="logout.php">Logout</a></li>
-		                                    	<?php } else { ?>
-	                                    		<li><a href="cart-page.php">Cart Page </a></li>
-	                                    		<li><a href="wishlist.php">Wishlist </a></li>
-	                                            <li><a href="login-register.php">Login/Register</a></li>
-	                                       		<?php } ?>
-	                                        </ul>
-	                                    </li>
-	                                </ul>
-	                            </div>
-	                        </div> 
+                            <?php if(isset($_SESSION['user_uni_no'])) { ?>
+                            <div class="setting-wrap">
+                                <button class="setting-active">
+                                    <i class="sli sli-settings"></i>
+                                </button>
+                                <div class="setting-content">
+                                    <ul>
+                                        <li>
+                                            <h4>Account</h4>
+                                            <ul>
+                                                <li><a href="my-account.php">My Account</a></li>
+                                                <li><a href="cart-page.php">Cart Page </a></li>
+                                                <li><a href="checkout.php">Checkout </a></li>
+                                                <li><a href="logout.php">Logout</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div> 
+                            <?php } ?>
 	                    </div>
 	                </div>
-
+                    
+                    <?php if(!isset($_SESSION['user_uni_no'])) { ?>
+                    <div class="col-xl-2 col-lg-2">
+	                   <div class="login-btn btn-hover text-center">
+                	        <a class="default-btn" href="login-register.php">Login/Register</a>
+                	    </div>
+	                </div>
+                    <?php } ?>
 	            </div>
 	        </div>
 	        <!-- main-search start -->
@@ -144,12 +160,21 @@ require_once('assets/php/config.php');
 	                <div class="col-6">
 	                    <div class="mobile-logo">
 	                        <a href="index.php">
-	                            <img alt="" src="assets/img/logo/company-logo-2.svg">
+	                            <img alt="" src="assets/img/logo/sleepers0choice-logo.jpg" width="280px" height="100px">
 	                        </a>
 	                    </div>
 	                </div>
 	                <div class="col-6">
 	                    <div class="header-right-wrap">
+                          <div class="cart-wrap">
+	                            <button class="icon-cart-active wishlist-icon" onclick="location.href = 'wishlist.php';">
+	                                <span class="icon-cart">
+	                                    <i class="sli sli-heart"></i>
+	                                    <span class="wishlist-count-style">0
+	                                    </span>
+	                                </span>
+	                            </button>
+	                        </div>
 	                        <div class="cart-wrap">
 	                            <button class="icon-cart-active">
 	                                <span class="icon-cart">
@@ -167,7 +192,7 @@ require_once('assets/php/config.php');
 	                            </div>
 	                        </div>
 	                        <div class="mobile-off-canvas">
-	                            <a class="mobile-aside-button" href="#"><i class="sli sli-menu"></i></a>
+	                            <a class="mobile-aside-button" href="javascript:void(0)"><i class="sli sli-menu"></i></a>
 	                        </div>
 	                    </div>
 	                </div>
@@ -207,14 +232,17 @@ require_once('assets/php/config.php');
             </div>
             <div class="mobile-curr-lang-wrap">
                 <div class="single-mobile-curr-lang">
-                    <a class="mobile-account-active" href="my-account.php">My Account <i class="sli sli-arrow-down"></i></a>
+                    <a class="mobile-account-active" href="javascript:void(0)">My Account <i class="sli sli-arrow-down"></i></a>
                     <div class="lang-curr-dropdown account-dropdown-active">
                         <ul>
+                            <?php if(!isset($_SESSION['user_uni_no'])) { ?>
+                            <li><a href="login-register.php">Login/Register</a></li>
+                            <?php } else { ?>
+                            <li><a href="my-account.php">My Account</a></li>
                             <li><a href="cart-page.php">Cart Page </a></li>
                             <li><a href="checkout.php">Checkout </a></li>
-                            <li><a href="compare-page.php">Compare </a></li>
-                            <li><a href="wishlist.php">Wishlist </a></li>
-                            <li><a href="login-register.php">Login/Register</a></li>
+                            <li><a href="logout.php">Logout</a></li>
+                            <?php } ?>
                         </ul>
                     </div>
                 </div>

@@ -16,7 +16,9 @@ if(isset($_POST['login'])){
     {  
         $_SESSION['admin_id'] = $row["admin_id"];
         $_SESSION['admin_name'] = $row["admin_name"];
-        $_SESSION['admin_image'] = $row["admin_image"];
+        $_SESSION['admin_email']  = $row["admin_email"];
+        $_SESSION['admin_image'] =  $row['admin_image'];
+        
         echo "<script>window.open('../../index.php','_self')</script>";
     }  
     else  
